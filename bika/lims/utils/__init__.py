@@ -382,7 +382,7 @@ def createPdf(htmlreport, outfile=None, css=None, images={}):
     if debug_mode:
         htmlfilepath = Globals.INSTANCE_HOME + "/var/" + tmpID() + ".html"
         htmlfile = open(htmlfilepath, 'w')
-        htmlfile.write(htmlreport)
+        htmlfile.write(t(htmlreport))
         htmlfile.close()
     return open(outfile, 'r').read();
 
