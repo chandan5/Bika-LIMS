@@ -90,8 +90,8 @@ class Report(BrowserView):
             return self.default_template()
 
         val = self.selection_macros.parse_daterange(self.request,
-                                                    'getDateSampled',
-                                                    'DateSampled')
+                                                    'getDateReceived',
+                                                    'DateReceived')
         if val:
             self.contentFilter[val['contentFilter'][0]] = val['contentFilter'][1]
             parms.append(val['parms'])
@@ -142,7 +142,7 @@ class Report(BrowserView):
                 'Request ID': analysis.aq_parent.getId(),
                 'Analyst': analysis.getAnalyst(),
                 'Result': result,
-                'Sampled': analysis.getDateSampled(),
+                'Sampled': analysis.getDateReceived(),
                 'Captured': analysis.getResultCaptureDate(),
                 'Uncertainty': analysis.getUncertainty(),
                 'result_in_range': result_in_range,
