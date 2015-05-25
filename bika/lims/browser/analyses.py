@@ -77,6 +77,10 @@ class AnalysesView(BikaListingView):
             'state_title': {
                 'title': _('Status'),
                 'sortable': False},
+            'DetectionLimit': {
+                'title': _('DL'),
+                'sortable': False,
+                'toggle': False},
             'Result': {
                 'title': _('Result'),
                 'input_width': '6',
@@ -115,6 +119,7 @@ class AnalysesView(BikaListingView):
              'contentFilter': {},
              'columns': ['Service',
                          'Partition',
+                         'DetectionLimit',
                          'Result',
                          'Specification',
                          'Method',
@@ -341,6 +346,7 @@ class AnalysesView(BikaListingView):
             items[i]['interim_fields'] = interim_fields
             items[i]['Remarks'] = obj.getRemarks()
             items[i]['Uncertainty'] = ''
+            items[i]['DetectionLimit'] = ''
             items[i]['retested'] = obj.getRetested()
             items[i]['class']['retested'] = 'center'
             items[i]['result_captured'] = self.ulocalized_time(
@@ -578,6 +584,8 @@ class AnalysesView(BikaListingView):
                 dmk = self.context.bika_setup.getResultsDecimalMark()
                 items[i]['formatted_result'] = obj.getFormattedResult(sciformat=int(scinot),decimalmark=dmk)
 
+                # LIMS-1379 Allow manual uncertainty value input
+                # https://jira.bikalabs.com/browse/LIMS-1379
                 fu = format_uncertainty(obj, result, decimalmark=dmk, sciformat=int(scinot))
                 fu = fu if fu else ''
                 if can_edit_analysis and service.getAllowManualUncertainty() == True:
@@ -590,6 +598,60 @@ class AnalysesView(BikaListingView):
                     items[i]['Uncertainty'] = fu
                     items[i]['before']['Uncertainty'] = '&plusmn;&nbsp;';
                     items[i]['after']['Uncertainty'] = '<em class="discreet" style="white-space:nowrap;"> %s</em>' % items[i]['Unit'];
+
+                # LIMS-1700. Allow manual input of Detection Limits
+                # LIMS-1775. Allow to select LDL or UDL defaults in results with readonly mode
+                # https://jira.bikalabs.com/browse/LIMS-1700
+                # https://jira.bikalabs.com/browse/LIMS-1775
+                if can_edit_analysis and \
+                    hasattr(obj, 'getDetectionLimitOperand') and \
+                    hasattr(service, 'getDetectionLimitSelector') and \
+                    service.getDetectionLimitSelector() == True:
+                    isldl = obj.isBelowLowerDetectionLimit()
+                    isudl = obj.isAboveUpperDetectionLimit()
+                    dlval=''
+                    if isldl or isudl:
+                        dlval = '<' if isldl else '>'
+                    item['allow_edit'].append('DetectionLimit')
+                    item['DetectionLimit'] = dlval
+                    choices=[{'ResultValue': '<', 'ResultText': '<'},
+                             {'ResultValue': '>', 'ResultText': '>'}]
+                    item['choices']['DetectionLimit'] = choices
+                    self.columns['DetectionLimit']['toggle'] = True
+                    srv = obj.getService()
+                    defdls = {'min':srv.getLowerDetectionLimit(),
+                              'max':srv.getUpperDetectionLimit(),
+                              'manual':srv.getAllowManualDetectionLimit()}
+                    defin = '<input type="hidden" id="DefaultDLS.%s" value=\'%s\'/>'
+                    defin = defin % (obj.UID(), json.dumps(defdls))
+                    item['after']['DetectionLimit'] = defin
+
+                # LIMS-1769. Allow to use LDL and UDL in calculations.
+                # https://jira.bikalabs.com/browse/LIMS-1769
+                # Since LDL, UDL, etc. are wildcards that can be used
+                # in calculations, these fields must be loaded always
+                # for 'live' calculations.
+                if can_edit_analysis:
+                    dls = {'default_ldl': 'none',
+                           'default_udl': 'none',
+                           'below_ldl': False,
+                           'above_udl': False,
+                           'is_ldl': False,
+                           'is_udl': False,
+                           'manual_allowed': False,
+                           'dlselect_allowed': False}
+                    if hasattr(obj, 'getDetectionLimits'):
+                        dls['below_ldl'] = obj.isBelowLowerDetectionLimit()
+                        dls['above_udl'] = obj.isBelowLowerDetectionLimit()
+                        dls['is_ldl'] = obj.isLowerDetectionLimit()
+                        dls['is_udl'] = obj.isUpperDetectionLimit()
+                        dls['default_ldl'] = service.getLowerDetectionLimit()
+                        dls['default_udl'] = service.getUpperDetectionLimit()
+                        dls['manual_allowed'] = service.getAllowManualDetectionLimit()
+                        dls['dlselect_allowed'] = service.getDetectionLimitSelector()
+                    dlsin = '<input type="hidden" id="AnalysisDLS.%s" value=\'%s\'/>'
+                    dlsin = dlsin % (obj.UID(), json.dumps(dls))
+                    item['after']['Result'] = dlsin
 
             else:
                 items[i]['Specification'] = ""

@@ -25,7 +25,7 @@ def lookup(context, portal_type, **kwargs):
 
 def check_for_required_columns(name, data, required):
     for column in required:
-        if not data[column]:
+        if not data.get(column, None):
             message = _("%s has no '%s' column." % (name, column))
             raise Exception(t(message))
 
@@ -398,10 +398,10 @@ class Lab_Products(WorksheetImporter):
             # Apply the row values
             obj.edit(
                 title=row['title'],
-                description=row['description'],
-                Volume=row['volume'],
-                Unit=str(row['unit']),
-                Price=str(row['price']),
+                description=row.get('description', ''),
+                Volume=row.get('volume', ''),
+                Unit=str(row.get('unit', '')),
+                Price=str(row.get('price', '')),
             )
             # Rename the new object
             renameAfterCreation(obj)
@@ -571,6 +571,10 @@ class Suppliers(WorksheetImporter):
                     AccountNumber=row.get('AccountNumber', ''),
                     BankName=row.get('BankName', ''),
                     BankBranch=row.get('BankBranch', ''),
+                    SWIFTcode=row.get('SWIFTcode', ''),
+                    IBN=row.get('IBN', ''),
+                    NIB=row.get('NIB', ''),
+                    Website=row.get('Website', ''),
                 )
                 self.fill_contactfields(row, obj)
                 self.fill_addressfields(row, obj)
@@ -1000,7 +1004,17 @@ class Methods(WorksheetImporter):
                 obj.edit(
                     title=row['title'],
                     description=row.get('description', ''),
-                    Instructions=row.get('Instructions', ''))
+                    Instructions=row.get('Instructions', ''),
+                    MethodID=row.get('MethodID', ''),
+                    Accredited=row.get('Accredited', True),
+                )
+                # Obtain all created methods
+                catalog = getToolByName(self.context, 'portal_catalog')
+                methods_brains = catalog.searchResults({'portal_type': 'Method'})
+                # If a the new method has the same MethodID as a created method, remove MethodID value.
+                for methods in methods_brains:
+                    if methods.getObject().get('MethodID', '') != '' and methods.getObject.get('MethodID', '') == obj['MethodID']:
+                        obj.edit(MethodID='')
 
                 if row['MethodDocument']:
                     path = resource_filename(
@@ -1062,7 +1076,7 @@ class Calculations(WorksheetImporter):
             calc_interims = self.interim_fields.get(calc_title, [])
             formula = row['Formula']
             # scan formula for dep services
-            keywords = re.compile(r"\[([^\]]+)\]").findall(formula)
+            keywords = re.compile(r"\[([^\.^\]]+)\]").findall(formula)
             # remove interims from deps
             interim_keys = [k['keyword'] for k in calc_interims]
             dep_keywords = [k for k in keywords if k not in interim_keys]
@@ -1173,7 +1187,7 @@ class Analysis_Services(WorksheetImporter):
             department = self.get_object(bsc, 'Department', row.get('Department_title'))
             methods = self.get_object(bsc, 'Method', row.get('Methods'))
             instruments = self.get_object(bsc, 'Instrument', row.get('Instrument_title'))
-            calculation = self.get_object(bsc, 'Calculation', row.get('Calculation_title'))
+            deferred_calc = self.get_object(bsc, 'Calculation', row.get('Calculation_title'))
             container = self.get_object(bsc, 'Container', row.get('Container_title'))
             preservation = self.get_object(bsc, 'Preservation', row.get('Preservation_title'))
             priority = self.get_object(bsc, 'ARPriority', row.get('Priority_title'))
@@ -1196,7 +1210,7 @@ class Analysis_Services(WorksheetImporter):
                 Methods=[methods],
                 InstrumentEntryOfResults=True if instruments != '' else '',
                 Instruments=[instruments] if instruments != '' else '',
-                Calculation=calculation,
+                DeferredCalculation=deferred_calc,
                 DuplicateVariation="%02f" % Float(row['DuplicateVariation']),
                 Accredited=self.to_bool(row['Accredited']),
                 InterimFields=hasattr(self, 'service_interims') and self.service_interims.get(
@@ -1205,7 +1219,11 @@ class Analysis_Services(WorksheetImporter):
                 Container=container,
                 Preservation=preservation,
                 Priority=priority,
+                CommercialID=row.get('CommercialID', ''),
+                ProtocolID=row.get('ProtocolID', '')
             )
+            if deferred_calc:
+                obj.setUseDefaultCalculation(False)
             obj.unmarkCreationFlag()
             renameAfterCreation(obj)
         self.load_result_options()
@@ -1303,7 +1321,12 @@ class Analysis_Profiles(WorksheetImporter):
                 obj = _createObjectByType("AnalysisProfile", folder, tmpID())
                 obj.edit(title=row['title'],
                          description=row.get('description', ''),
-                         ProfileKey=row['ProfileKey'])
+                         ProfileKey=row['ProfileKey'],
+                         CommercialID=row.get('CommercialID', ''),
+                         AnalysisProfilePrice="%02f" % Float(row.get('AnalysisProfilePrice', '0.0')),
+                         AnalysisProfileVAT="%02f" % Float(row.get('AnalysisProfileVAT', '0.0')),
+                         UseAnalysisProfilePrice=row.get('UseAnalysisProfilePrice', False)
+                         )
                 obj.setService(self.profile_services[row['title']])
                 obj.unmarkCreationFlag()
                 renameAfterCreation(obj)

@@ -10,12 +10,14 @@ from bika.lims.browser.widgets import ServicesWidget
 from bika.lims.config import PROJECTNAME
 from bika.lims.content.bikaschema import BikaSchema
 from Products.Archetypes.public import *
+from bika.lims.interfaces import IAnalysisProfile
 from Products.Archetypes.references import HoldingReference
 from Products.ATExtensions.field import RecordsField
 from Products.CMFCore.permissions import View, ModifyPortalContent
 from Products.CMFCore.utils import getToolByName
 from zope.interface import Interface, implements
 import sys
+from bika.lims.interfaces import IAnalysisProfile
 
 schema = BikaSchema.copy() + Schema((
     StringField('ProfileKey',
@@ -58,7 +60,60 @@ schema = BikaSchema.copy() + Schema((
          subfields=('uid', 'hidden',),
          widget=ComputedWidget(visible=False),
     ),
-),
+    StringField('CommercialID',
+        searchable=1,
+        required=0,
+        schemata='Accounting',
+        widget=StringWidget(
+            visible={'view': 'visible', 'edit': 'visible'},
+            label=_('Commercial ID'),
+            description=_("The profile's commercial ID for accounting purposes."),
+        ),
+    ),
+    # The price will only be used if the checkbox "use analysis profiles' price" is set.
+    # This price will be used to quote the analyses instead of analysis service's price.
+    FixedPointField('AnalysisProfilePrice',
+        schemata="Accounting",
+        default='0.00',
+        widget=DecimalWidget(
+            label = _("Price (excluding VAT)"),
+            visible={'view': 'visible', 'edit': 'visible'},
+        ),
+    ),
+    # When the checkbox "use analysis profiles' price" is set, the AnalysisProfilesVAT should override
+    # the system's VAT
+    FixedPointField('AnalysisProfileVAT',
+        schemata = "Accounting",
+        default = '14.00',
+        widget = DecimalWidget(
+            label=_("VAT %"),
+            description=_(
+                "Enter percentage value eg. 14.0. This percentage is applied on the Analysis Profile only, overriding "
+                "the systems VAT"),
+                visible={'view': 'visible', 'edit': 'visible'},
+        )
+    ),
+    # This VAT amount is computed using the AnalysisProfileVAT instead of systems VAT
+    ComputedField('VATAmount',
+        schemata="Accounting",
+        expression='context.getVATAmount()',
+        widget=ComputedWidget(
+            label = _("VAT"),
+            visible={'view': 'visible', 'edit': 'invisible'},
+            ),
+    ),
+    # When it's set, the system uses the analysis profile's price to quote and the system's VAT is overridden by the
+    # the analysis profile's specific VAT
+    BooleanField('UseAnalysisProfilePrice',
+        default=False,
+        schrmata='Accounting',
+        widget=BooleanWidget(
+            label=_("Use Analysis Profile Price"),
+            description=_("When it's set, the system uses the analysis profile's price to quote and the system's VAT is"
+                          " overridden by the analysis profile's specific VAT"),
+        )
+    ),
+)
 )
 schema['title'].widget.visible = True
 schema['description'].widget.visible = True
@@ -68,6 +123,7 @@ class AnalysisProfile(BaseContent):
     security = ClassSecurityInfo()
     schema = schema
     displayContentsTab = False
+    implements(IAnalysisProfile)
 
     _at_rename_after_creation = True
     def _renameAfterCreation(self, check_auto_id=False):
@@ -108,5 +164,11 @@ class AnalysisProfile(BaseContent):
             else:
                 raise ValueError('%s is not valid' % uid)
         return sets.get('hidden', False)
+
+    def getVATAmount(self):
+        """ Compute AnalysisProfileVATAmount
+        """
+        price, vat = self.getAnalysisProfilePrice(), self.getAnalysisProfileVAT()
+        return float(price) * float(vat) / 100
 
 registerType(AnalysisProfile, PROJECTNAME)
