@@ -80,7 +80,6 @@ class Report(BrowserView):
             self.contentFilter[val['contentFilter'][0]] = val['contentFilter'][1]
             parms.append(val['parms'])
             titles.append(val['titles'])
-
         val = self.selection_macros.parse_analysisservice(self.request)
         if val:
             self.contentFilter[val['contentFilter'][0]] = val['contentFilter'][1]
