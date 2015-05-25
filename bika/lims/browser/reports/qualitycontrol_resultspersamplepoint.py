@@ -38,8 +38,10 @@ class Report(BrowserView):
         for name, adapter in adapters:
             if not spec:
                 return False
-            if adapter(specification=spec):
-                return True
+            res = adapter(specification=spec)
+            if res:
+
+                return res['out_of_range'], res['acceptable']
 
     def __call__(self):
 
