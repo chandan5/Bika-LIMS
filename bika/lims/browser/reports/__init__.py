@@ -118,7 +118,7 @@ class ReportHistoryView(BikaListingView):
         if this_client:
             self.contentFilter = {
                 'portal_type': 'Report',
-                'getClientUID': this_client.UID(),
+                'ClientUID': this_client.UID(),
                 'sort_order': 'reverse'}
             self.columns = {
                 'Title': {'title': _('Title')},

@@ -726,11 +726,11 @@ class Sample(BaseFolder, HistoryAwareMixin):
 
     def workflow_script_expire(self):
         self.setDateExpired(DateTime())
-        self.reindexObject(idxs=["review_state", "getDateExpired", ])
+        self.reindexObject(idxs=["review_state", "DateExpired", ])
 
     def workflow_script_dispose(self):
         self.setDateDisposed(DateTime())
-        self.reindexObject(idxs=["review_state", "getDateDisposed", ])
+        self.reindexObject(idxs=["review_state", "DateDisposed", ])
 
     def workflow_script_sample(self):
         if skip(self, "sample"):

@@ -160,8 +160,8 @@ Add Analyses
 
     Go to                               ${PLONEURL}/worksheets/WS-001/add_analyses
     Wait Until Page Contains            Add Analyses
-    Click Element                       css=th#foldercontents-getRequestID-column
-    Wait Until Page Contains Element    css=th#foldercontents-getRequestID-column.sort_on
+    Click Element                       css=th#foldercontents-RequestID-column
+    Wait Until Page Contains Element    css=th#foldercontents-RequestID-column.sort_on
 
     :FOR     ${analysis}   IN   @{analyses}
     \     Select Checkbox         xpath=//input[@selector='${analysis}']

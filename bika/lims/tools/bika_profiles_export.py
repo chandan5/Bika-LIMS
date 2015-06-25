@@ -55,7 +55,7 @@ class bika_profiles_export(UniqueObject, SimpleItem):
             client = tool.lookupObject(client_uid)
 
             for p in self.portal_catalog(portal_type = 'AnalysisProfile',
-                                         getClientUID = client.UID(),
+                                         ClientUID = client.UID(),
                                          sort_on = 'sortable_title'):
 
                 profile = p.getObject()
@@ -71,7 +71,7 @@ class bika_profiles_export(UniqueObject, SimpleItem):
                 client_title = c.Title
 
                 for p in self.portal_catalog(portal_type = 'AnalysisProfile',
-                                             getClientUID = c.UID,
+                                             ClientUID = c.UID,
                                              sort_on = 'sortable_title'):
 
                     profile = p.getObject()

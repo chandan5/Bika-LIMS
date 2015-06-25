@@ -29,13 +29,13 @@ class Report(BrowserView):
         count_all = 0
 
         query = {'portal_type': 'AnalysisRequest',
-                 'getInvoiced': False,
+                 'Invoiced': False,
                  'review_state': 'published',
                  'sort_order': 'reverse'}
 
         date_query = formatDateQuery(self.context, 'c_DatePublished')
         if date_query:
-            query['getDatePublished'] = date_query
+            query['DatePublished'] = date_query
             pubished = formatDateParms(self.context, 'c_DatePublished')
         else:
             pubished = 'Undefined'

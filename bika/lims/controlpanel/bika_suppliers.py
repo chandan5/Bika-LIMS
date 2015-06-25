@@ -36,7 +36,7 @@ class SuppliersView(BikaListingView):
 
         self.columns = {
             'Name': {'title': _('Name'),
-                     'index': 'getName'},
+                     'index': 'title'},
             'Email': {'title': _('Email'),
                       'toggle': True},
             'Phone': {'title': _('Phone'),

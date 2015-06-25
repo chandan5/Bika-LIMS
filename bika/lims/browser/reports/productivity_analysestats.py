@@ -33,14 +33,14 @@ class Report(BrowserView):
         client_title = None
         if 'ClientUID' in self.request.form:
             client_uid = self.request.form['ClientUID']
-            query['getClientUID'] = client_uid
+            query['ClientUID'] = client_uid
             client = rc.lookupObject(client_uid)
             client_title = client.Title()
         else:
             client = logged_in_client(self.context)
             if client:
                 client_title = client.Title()
-                query['getClientUID'] = client.UID()
+                query['ClientUID'] = client.UID()
         if client_title:
             parms.append(
                 {'title': _('Client'),

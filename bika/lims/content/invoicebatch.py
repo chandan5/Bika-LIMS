@@ -127,7 +127,7 @@ def ObjectModifiedEventHandler(instance, event):
             'portal_type': 'AnalysisRequest',
             'review_state': 'published',
             'getInvoiceExclude': False,
-            'getDatePublished': {
+            'DatePublished': {
                 'range': 'min:max',
                 'query': [start, end]
             }

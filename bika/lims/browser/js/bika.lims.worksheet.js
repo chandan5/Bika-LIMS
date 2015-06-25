@@ -82,7 +82,7 @@ function WorksheetAddAnalysesView() {
             $(form).append("<input type='hidden' name='table_only' value='" + form_id + "'>");
             // dropdowns are printed in ../templates/worksheet_add_analyses.pt
             // We add <formid>_<index>=<value>, which are checked in bika_listing.py
-            var filter_indexes = ['getCategoryTitle', 'Title', 'getClientTitle'];
+            var filter_indexes = ['CategoryTitle', 'title', 'ClientTitle'];
             var i, fi;
             for (i = 0; i < filter_indexes.length; i++) {
                 fi = form_id + "_" + filter_indexes[i];

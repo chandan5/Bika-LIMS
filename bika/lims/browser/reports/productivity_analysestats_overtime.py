@@ -42,7 +42,7 @@ class Report(BrowserView):
 
         if 'Analyst' in self.request.form:
             analyst = self.request.form['Analyst']
-            query['getAnalyst'] = analyst
+            query['Analyst'] = analyst
             analyst_title = self.user_fullname(analyst)
             parms.append(
                 {'title': _('Analyst'),

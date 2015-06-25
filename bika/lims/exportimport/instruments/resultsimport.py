@@ -264,7 +264,7 @@ class AnalysisResultsImporter(Logger):
                                            'attachment_due',
                                            'to_be_verified']
         if not self._idsearch:
-            self._idsearch=['getRequestID']
+            self._idsearch=['RequestID']
         self.instrument_uid=instrument_uid
 
     def getParser(self):
@@ -300,7 +300,7 @@ class AnalysisResultsImporter(Logger):
     def getIdSearchCriteria(self):
         """ Returns the search criteria for retrieving analyses.
             Example:
-            serachcriteria=['getRequestID', 'getSampleID', 'getClientSampleID']
+            serachcriteria=['RequestID', 'SampleID', 'ClientSampleID']
         """
         return self._idsearch
 
@@ -570,15 +570,15 @@ class AnalysisResultsImporter(Logger):
         obj = []
         if (criteria == 'arid'):
             obj = self.pc(portal_type='AnalysisRequest',
-                           getRequestID=objid,
+                           RequestID=objid,
                            review_state=states)
         elif (criteria == 'sid'):
             obj = self.pc(portal_type='AnalysisRequest',
-                           getSampleID=objid,
+                           SampleID=objid,
                            review_state=states)
         elif (criteria == 'csid'):
             obj = self.pc(portal_type='AnalysisRequest',
-                           getClientSampleID=objid,
+                           ClientSampleID=objid,
                            review_state=states)
         elif (criteria == 'aruid'):
             obj = self.pc(portal_type='AnalysisRequest',
@@ -611,7 +611,7 @@ class AnalysisResultsImporter(Logger):
         analyses = []
         # HACK: Use always the full search workflow
         #searchcriteria = self.getIdSearchCriteria()
-        searchcriteria = ['getRequestID', 'getSampleID', 'getClientSampleID']
+        searchcriteria = ['RequestID', 'SampleID', 'ClientSampleID']
         allowed_ar_states = self.getAllowedARStates()
         allowed_an_states = self.getAllowedAnalysisStates()
         allowed_ar_states_msg = [_(s) for s in allowed_ar_states]
@@ -654,10 +654,10 @@ class AnalysisResultsImporter(Logger):
         else:
             sortorder = ['arid', 'sid', 'csid', 'aruid'];
             for crit in sortorder:
-                if (crit == 'arid' and 'getRequestID' in allowedsearches) \
-                    or (crit == 'sid' and 'getSampleID' in allowedsearches) \
-                    or (crit == 'csid' and 'getClientSampleID' in allowedsearches) \
-                    or (crit == 'aruid' and 'getRequestID' in allowedsearches):
+                if (crit == 'arid' and 'RequestID' in allowedsearches) \
+                    or (crit == 'sid' and 'SampleID' in allowedsearches) \
+                    or (crit == 'csid' and 'ClientSampleID' in allowedsearches) \
+                    or (crit == 'aruid' and 'RequestID' in allowedsearches):
                     ars = self._getObjects(objid, crit, arstates)
                     if ars and len(ars) > 0:
                         break

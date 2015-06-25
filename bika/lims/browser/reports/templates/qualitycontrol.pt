@@ -163,7 +163,7 @@
                                              multiselect=True,
                                              allow_blank=False)"/>
                             <tal:x content="structure python:view.selection_macros.select_daterange(
-                                             field_id='getDateSampled',
+                                             field_id='DateSampled',
                                              field_title='Date Sampled')"/>
                             <tal:x content="structure python:view.selection_macros.select_state(
                                              workflow_id='bika_worksheetanalysis_workflow',

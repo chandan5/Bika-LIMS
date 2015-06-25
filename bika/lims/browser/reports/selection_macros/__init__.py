@@ -117,7 +117,7 @@ class SelectionMacrosView(BrowserView):
             obj = val and self.rc.lookupObject(val)
             title = obj.Title()
             res = {}
-            res['contentFilter'] = ('getClientUID', val)
+            res['contentFilter'] = ('ClientUID', val)
             res['parms'] = {'title': _("Client"), 'value': title}
             res['titles'] = title
             return res
@@ -254,7 +254,7 @@ class SelectionMacrosView(BrowserView):
             obj = val and self.rc.lookupObject(val)
             title = obj.Title()
             res = {}
-            res['contentFilter'] = ('getSamplePointUID', val)
+            res['contentFilter'] = ('SamplePointUID', val)
             res['parms'] = {'title': _("Sample Point"), 'value': title}
             res['titles'] = title
             return res
@@ -276,7 +276,7 @@ class SelectionMacrosView(BrowserView):
             obj = val and self.rc.lookupObject(val)
             title = obj.Title()
             res = {}
-            res['contentFilter'] = ('getSampleTypeUID', val)
+            res['contentFilter'] = ('SampleTypeUID', val)
             res['parms'] = {'title': _("Sample Type"), 'value': title}
             res['titles'] = title
             return res

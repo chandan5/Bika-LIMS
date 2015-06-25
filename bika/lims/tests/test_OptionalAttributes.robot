@@ -24,7 +24,7 @@ Create AR with hidden attributes
     enable autologin as  Manager
     Go to                       ${PLONEURL}/portal_registry/edit/bika.lims.hiddenattributes
     Click Button                Add
-    Input Text                 form-widgets-value-0     AnalysisRequest\nClientOrderNumber\ngetClientOrderNumber\nSamplingDeviation\nAdHoc\nInvoiceExclude\nSamplePoint
+    Input Text                 form-widgets-value-0     AnalysisRequest\nClientOrderNumber\nClientOrderNumber\nSamplingDeviation\nAdHoc\nInvoiceExclude\nSamplePoint
     Click Button                Add
     Input Text                 form-widgets-value-1     Sample\nSamplingDeviation\nSamplePoint
     Click Button                Save

@@ -36,7 +36,7 @@ class LabContactsView(BikaListingView):
 
         self.columns = {
             'Fullname': {'title': _('Name'),
-                         'index': 'getFullname'},
+                         'index': 'Fullname'},
             'Department': {'title': _('Department'),
                            'index': 'getDepartmentTitle',
                            'toggle': True},

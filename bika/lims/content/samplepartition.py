@@ -136,7 +136,7 @@ class SamplePartition(BaseContent, HistoryAwareMixin):
 
     def workflow_transition_expire(self):
         self.setDateExpired(DateTime())
-        self.reindexObject(idxs=["review_state", "getDateExpired", ])
+        self.reindexObject(idxs=["review_state", "DateExpired", ])
 
     def workflow_script_sample(self):
         if skip(self, "sample"):

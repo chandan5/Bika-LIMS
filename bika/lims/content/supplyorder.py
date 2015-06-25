@@ -147,7 +147,7 @@ class SupplyOrder(BaseFolder):
         user_id = user.getUserName()
         r = self.portal_catalog(
             portal_type='Contact',
-            getUsername=user_id
+            Username=user_id
         )
         if len(r) == 1:
             return r[0].UID

@@ -115,7 +115,7 @@ class BrowserView(BrowserView):
         if member is None:
             return userid
         member_fullname = member.getProperty('fullname')
-        c = self.portal_catalog(portal_type='Contact', getUsername=userid)
+        c = self.portal_catalog(portal_type='Contact', Username=userid)
         contact_fullname = c[0].getObject().getFullname() if c else None
         return contact_fullname or member_fullname or userid
 
@@ -124,7 +124,7 @@ class BrowserView(BrowserView):
         if member is None:
             return userid
         member_email = member.getProperty('email')
-        c = self.portal_catalog(portal_type='Contact', getUsername=userid)
+        c = self.portal_catalog(portal_type='Contact', Username=userid)
         contact_email = c[0].getObject().getEmailAddress() if c else None
         return contact_email or member_email or ''
 

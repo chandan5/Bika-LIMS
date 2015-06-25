@@ -224,29 +224,29 @@ function AnalysisRequestAddByCol() {
          * Filter all Reference fields that reference Client items
          *
          * Some reference fields can select Lab or Client items.  In these
-         * cases, the 'getParentUID' or 'getClientUID' index is used
+         * cases, the 'ParentUID' or 'ClientUID' index is used
          * to filter against Lab and Client folders.
          */
         var element, uids
         var uid = $($("tr[fieldname='Client'] td[arnum='" + arnum + "'] input")[0]).attr("uid")
         element = $("tr[fieldname=Contact] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getParentUID", uid)
+        filter_combogrid(element, "ParentUID", uid)
         element = $("tr[fieldname=CCContact] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getParentUID", uid)
+        filter_combogrid(element, "ParentUID", uid)
         element = $("tr[fieldname=InvoiceContact] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getParentUID", uid)
+        filter_combogrid(element, "ParentUID", uid)
         uids = [uid, $("#bika_setup").attr("bika_samplepoints_uid")]
         element = $("tr[fieldname=SamplePoint] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getClientUID", uids)
+        filter_combogrid(element, "ClientUID", uids)
         uids = [uid, $("#bika_setup").attr("bika_artemplates_uid")]
         element = $("tr[fieldname=Template] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getClientUID", uids)
+        filter_combogrid(element, "ClientUID", uids)
         uids = [uid, $("#bika_setup").attr("bika_analysisprofiles_uid")]
         element = $("tr[fieldname=Profile] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getClientUID", uids)
+        filter_combogrid(element, "ClientUID", uids)
         uids = [uid, $("#bika_setup").attr("bika_analysisspecs_uid")]
         element = $("tr[fieldname=Specification] td[arnum=" + arnum + "] input")[0]
-        filter_combogrid(element, "getClientUID", uids)
+        filter_combogrid(element, "ClientUID", uids)
     }
 
     function hashes_to_hash(hashlist, key) {
@@ -746,7 +746,7 @@ function AnalysisRequestAddByCol() {
         var request_data = {
             catalog_name: "bika_setup_catalog",
             portal_type: "AnalysisSpec",
-            getSampleTypeUID: st_uid,
+            SampleTypeUID: st_uid,
             include_fields: ["Title", "UID", "ResultsRange"]
         }
         window.bika.lims.jsonapi_read(request_data, function (data) {
@@ -781,7 +781,7 @@ function AnalysisRequestAddByCol() {
         var spec_element = $("tr[fieldname='Specification'] td[arnum='" + arnum + "'] input[type='text']")
         var query_str = $(spec_element).attr("search_query")
         var query = $.parseJSON(query_str)
-        if (query.hasOwnProperty("getSampleTypeUID")) {
+        if (query.hasOwnProperty("SampleTypeUID")) {
             delete query.getSampleTypeUID
         }
         query.getSampleTypeUID = [encodeURIComponent(sampletype_uid), ""]
@@ -809,7 +809,7 @@ function AnalysisRequestAddByCol() {
          */
         var spe = $("tr[fieldname='SamplePoint'] td[arnum='" + arnum + "'] input[type='text']")
         var ste = $("tr[fieldname='SampleType'] td[arnum='" + arnum + "'] input[type='text']")
-        filter_combogrid(ste, "getSamplePointTitle", $(spe).val(),
+        filter_combogrid(ste, "SamplePointTitle", $(spe).val(),
                          'search_query')
     }
 
@@ -834,7 +834,7 @@ function AnalysisRequestAddByCol() {
         // 3. Cannot select SamplePoint linked to other sample types (and not to this one)
         var spe = $("tr[fieldname='SamplePoint'] td[arnum='" + arnum + "'] input[type='text']")
         var ste = $("tr[fieldname='SampleType'] td[arnum='" + arnum + "'] input[type='text']")
-        filter_combogrid(spe, "getSampleTypeTitle", $(ste).val(),
+        filter_combogrid(spe, "SampleTypeTitle", $(ste).val(),
                          'search_query')
         set_spec_from_sampletype(arnum)
         partition_indicators_set(arnum)

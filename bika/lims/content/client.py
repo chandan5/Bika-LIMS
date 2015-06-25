@@ -148,7 +148,7 @@ class Client(Organisation):
         username = member.getUserName()
         r = self.portal_catalog(
             portal_type = 'Contact',
-            getUsername = username
+            Username = username
         )
         if len(r) == 1:
             return r[0].UID

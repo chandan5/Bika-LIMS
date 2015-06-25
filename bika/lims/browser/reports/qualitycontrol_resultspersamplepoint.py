@@ -91,7 +91,7 @@ class Report(BrowserView):
             return self.default_template()
 
         val = self.selection_macros.parse_daterange(self.request,
-                                                    'getDateSampled',
+                                                    'DateSampled',
                                                     'DateSampled')
         if val:
             self.contentFilter[val['contentFilter'][0]] = val['contentFilter'][1]

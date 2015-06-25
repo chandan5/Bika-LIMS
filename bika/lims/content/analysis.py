@@ -565,20 +565,20 @@ class Analysis(BaseContent):
         # retrieves the desired specs if None specs defined
         if not specification:
             proxies = bsc(portal_type='AnalysisSpec',
-                          getClientUID=self.getClientUID(),
-                          getSampleTypeUID=sampletype_uid)
+                          ClientUID=self.getClientUID(),
+                          SampleTypeUID=sampletype_uid)
 
             if len(proxies) == 0:
                 # No client specs available, retrieve lab specs
                 labspecsuid = self.bika_setup.bika_analysisspecs.UID()
                 proxies = bsc(portal_type = 'AnalysisSpec',
-                          getSampleTypeUID = sampletype_uid)
+                          SampleTypeUID = sampletype_uid)
         else:
             specuid = specification == "client" and self.getClientUID() or \
                     self.bika_setup.bika_analysisspecs.UID()
             proxies = bsc(portal_type='AnalysisSpec',
-                              getSampleTypeUID=sampletype_uid,
-                              getClientUID=specuid)
+                              SampleTypeUID=sampletype_uid,
+                              ClientUID=specuid)
 
         outspecs = None
         for spec in (p.getObject() for p in proxies):

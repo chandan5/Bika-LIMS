@@ -48,7 +48,7 @@ class ReferenceSamplesView(BikaListingView):
             'Manufacturer': {'title': _('Manufacturer'), 'toggle':True},
             'Definition': {'title': _('Reference Definition'), 'toggle':True},
             'DateSampled': {'title': _('Date Sampled'),
-                            'index': 'getDateSampled',
+                            'index': 'DateSampled',
                             'toggle':True},
             'DateReceived': {'title': _('Date Received'),
                              'index': 'DateReceived',
@@ -56,7 +56,7 @@ class ReferenceSamplesView(BikaListingView):
             'DateOpened': {'title': _('Date Opened'),
                            'toggle':True},
             'ExpiryDate': {'title': _('Expiry Date'),
-                           'index': 'getExpiryDate',
+                           'index': 'ExpiryDate',
                            'toggle':True},
             'state_title': {'title': _('State'), 'toggle':True},
         }
@@ -176,7 +176,7 @@ class ContactsView(BikaListingView):
         self.title = self.context.translate(_("Contacts"))
 
         self.columns = {
-            'getFullname': {'title': _('Full Name')},
+            'Fullname': {'title': _('Full Name')},
             'getEmailAddress': {'title': _('Email Address')},
             'getBusinessPhone': {'title': _('Business Phone')},
             'getMobilePhone': {'title': _('Mobile Phone')},
@@ -187,7 +187,7 @@ class ContactsView(BikaListingView):
             {'id':'default',
              'title': _('All'),
              'contentFilter':{},
-             'columns': ['getFullname',
+             'columns': ['Fullname',
                          'getEmailAddress',
                          'getBusinessPhone',
                          'getMobilePhone',
@@ -198,7 +198,7 @@ class ContactsView(BikaListingView):
         items = BikaListingView.folderitems(self)
         for x in range(len(items)):
             if not items[x].has_key('obj'): continue
-            items[x]['replace']['getFullname'] = "<a href='%s'>%s</a>" % \
+            items[x]['replace']['Fullname'] = "<a href='%s'>%s</a>" % \
                  (items[x]['url'], items[x]['obj'].getFullname())
 
         return items

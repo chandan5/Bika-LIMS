@@ -119,7 +119,7 @@ function AnalysisRequestViewView() {
                         var spelement = $("#archetypes-fieldname-SamplePoint #SamplePoint");
                         var base_query=$.parseJSON($(spelement).attr("base_query"));
                         var setup_uid = $("#bika_setup").attr("bika_samplepoints");
-                        base_query["getClientUID"] = [data['ClientUID'], setup_uid];
+                        base_query["ClientUID"] = [data['ClientUID'], setup_uid];
                         $(spelement).attr("base_query", $.toJSON(base_query));
                         var options = $.parseJSON($(spelement).attr("combogrid_options"));
                         options.url = window.location.href.split("/ar")[0] + "/" + options.url;
@@ -169,7 +169,7 @@ function AnalysisRequestViewView() {
         if ($('#CCContact').length > 0) {
             var element = $('#CCContact');
             var clientUID = getClientUID();
-            filter_by_client(element, "getParentUID", clientUID);
+            filter_by_client(element, "ParentUID", clientUID);
         }
     }
 

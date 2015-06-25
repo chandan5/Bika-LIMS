@@ -16,7 +16,7 @@ class LateAnalysesView(BikaListingView):
         self.catalog = 'bika_analysis_catalog'
         self.contentFilter = {
             'portal_type':'Analysis',
-            'getDueDate': {'query': [DateTime(),], 'range': 'max'},
+            'DueDate': {'query': [DateTime(),], 'range': 'max'},
             'review_state':['assigned',
                             'sample_received',
                             'to_be_verified',
@@ -39,13 +39,13 @@ class LateAnalysesView(BikaListingView):
         self.columns = {'Analysis': {'title': _('Analysis'),
                                      'index': 'sortable_title'},
                         'RequestID': {'title': _('Request ID'),
-                                      'index': 'getRequestID'},
+                                      'index': 'RequestID'},
                         'Client': {'title': _('Client')},
                         'Contact': {'title': _('Contact')},
                         'DateReceived': {'title': _('Date Received'),
                                          'index': 'DateReceived'},
                         'DueDate': {'title': _('Due Date'),
-                                    'index': 'getDueDate'},
+                                    'index': 'DueDate'},
                         'Late': {'title': _('Late')},
                         }
 

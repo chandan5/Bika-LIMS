@@ -94,17 +94,17 @@
 				</tal:options>
 			</select>
 
-			<label tal:attributes="for string:${form_id}_getClientTitle"
+			<label tal:attributes="for string:${form_id}_ClientTitle"
 				i18n:translate="">Client</label>
 			<select id="ClientSelector"
-					tal:attributes="name string:${form_id}_getClientTitle"
+					tal:attributes="name string:${form_id}_ClientTitle"
 					class="listing-filter">
 				<option value="any" i18n:translate="">Any</option>
 				<tal:options repeat="client view/getClients">
 					<option
 						tal:attributes="
 							value python:client;
-							selected python: view.request.form.get(form_id+'_getClientTitle', '') == client and 'selected' or ''"
+							selected python: view.request.form.get(form_id+'_ClientTitle', '') == client and 'selected' or ''"
 						tal:content="python:client"/>
 				</tal:options>
 			</select>&nbsp;

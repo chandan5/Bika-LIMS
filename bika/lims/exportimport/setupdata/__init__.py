@@ -437,7 +437,7 @@ class Client_Contacts(WorksheetImporter):
         pc = getToolByName(self.context, 'portal_catalog')
         for row in self.get_rows(3):
             client = pc(portal_type="Client",
-                        getName=row['Client_title'])
+                        title=row['Client_title'])
             if len(client) == 0:
                 raise IndexError("Client invalid: '%s'" % row['Client_title'])
             client = client[0].getObject()
@@ -468,7 +468,7 @@ class Client_Contacts(WorksheetImporter):
                                src_field='CCContact',
                                dest_catalog='portal_catalog',
                                dest_query={'portal_type': 'Contact',
-                                           'getFullname': _fullname}
+                                           'Fullname': _fullname}
                                )
             ## Create Plone user
             username = safe_unicode(row['Username']).encode('utf-8')
@@ -663,7 +663,7 @@ class Instruments(WorksheetImporter):
             )
             instrumenttype = self.get_object(bsc, 'InstrumentType', title=row.get('Type'))
             manufacturer = self.get_object(bsc, 'Manufacturer', title=row.get('Brand'))
-            supplier = self.get_object(bsc, 'Supplier', getName=row.get('Supplier', ''))
+            supplier = self.get_object(bsc, 'Supplier', title=row.get('Supplier', ''))
             obj.setInstrumentType(instrumenttype)
             obj.setManufacturer(manufacturer)
             obj.setSupplier(supplier)
@@ -1000,7 +1000,7 @@ class Sample_Points(WorksheetImporter):
                 continue
             if row['Client_title']:
                 client_title = row['Client_title']
-                client = pc(portal_type="Client", getName=client_title)
+                client = pc(portal_type="Client", title=client_title)
                 if len(client) == 0:
                     raise IndexError("Sample Point %s: Client invalid: '%s'" %
                                      (row['title'], client_title))
@@ -1397,7 +1397,7 @@ class Analysis_Specifications(WorksheetImporter):
                 if parent == "lab":
                     folder = self.context.bika_setup.bika_analysisspecs
                 else:
-                    proxy = pc(portal_type="Client", getName=parent)[0]
+                    proxy = pc(portal_type="Client", title=parent)[0]
                     folder = proxy.getObject()
                 st = bucket[parent][title]["sampletype"]
                 resultsrange = bucket[parent][title]["resultsrange"]
@@ -1515,7 +1515,7 @@ class AR_Templates(WorksheetImporter):
                 folder = self.context.bika_setup.bika_artemplates
             else:
                 folder = pc(portal_type='Client',
-                            getName=client_title)[0].getObject()
+                            title=client_title)[0].getObject()
 
             sampletype = self.get_object(bsc, 'SampleType',
                                          row.get('SampleType_title'))
@@ -1793,7 +1793,7 @@ class Reference_Samples(WorksheetImporter):
             if not row['id']:
                 continue
             supplier = bsc(portal_type='Supplier',
-                           getName=row.get('Supplier_title', ''))[0].getObject()
+                           title=row.get('Supplier_title', ''))[0].getObject()
             obj = _createObjectByType("ReferenceSample", supplier, row['id'])
             ref_def = self.get_object(bsc, 'ReferenceDefinition',
                                       row.get('ReferenceDefinition_title'))
@@ -1830,7 +1830,7 @@ class Samples(WorksheetImporter):
             if not row['id']:
                 continue
             client = pc(portal_type="Client",
-                        getName=row['Client_title'])[0].getObject()
+                        title=row['Client_title'])[0].getObject()
             obj = _createObjectByType("Sample", client, row['id'])
             obj.setSampleID(row['id'])
             obj.setClientSampleID(row['ClientSampleID'])
@@ -1933,10 +1933,10 @@ class Analysis_Requests(WorksheetImporter):
             if not row['id']:
                 continue
             client = pc(portal_type="Client",
-                        getName=row['Client_title'])[0].getObject()
+                        title=row['Client_title'])[0].getObject()
             obj = _createObjectByType("AnalysisRequest", client, row['id'])
             contact = pc(portal_type="Contact",
-                         getFullname=row['Contact_Fullname'])[0].getObject()
+                         Fullname=row['Contact_Fullname'])[0].getObject()
             sample = pc(portal_type="Sample",
                         id=row['Sample_id'])[0].getObject()
             obj.edit(
@@ -1952,7 +1952,7 @@ class Analysis_Requests(WorksheetImporter):
             )
             if row['CCContact_Fullname']:
                 contact = pc(portal_type="Contact",
-                             getFullname=row['CCContact_Fullname'])[0].getObject()
+                             Fullname=row['CCContact_Fullname'])[0].getObject()
                 obj.setCCContact(contact)
             if row['AnalysisProfile_title']:
                 profile = pc(portal_type="AnalysisProfile",

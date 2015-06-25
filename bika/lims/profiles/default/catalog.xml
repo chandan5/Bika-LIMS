@@ -4,54 +4,53 @@
     <index name="cancellation_state" meta_type="FieldIndex">              <indexed_attr value="cancellation_state"/> </index>
     <index name="inactive_state" meta_type="FieldIndex">                  <indexed_attr value="inactive_state"/> </index>
     <index name="worksheetanalysis_review_state" meta_type="FieldIndex">  <indexed_attr value="worksheetanalysis_review_state"/> </index>
-
     <!-- Dates -->
     <index name="BatchDate" meta_type="DateIndex">                        <indexed_attr value="BatchDate"/> </index>
     <index name="DateReceived" meta_type="DateIndex"></index>
-    <index name="getDateDisposed" meta_type="DateIndex">                  <indexed_attr value="getDateDisposed"/> </index>
-    <index name="getDateExpired" meta_type="DateIndex">                   <indexed_attr value="getDateExpired"/> </index>
-    <index name="getDateOpened" meta_type="DateIndex">                    <indexed_attr value="getDateOpened"/> </index>
-    <index name="getDatePublished" meta_type="DateIndex">                 <indexed_attr value="getDatePublished"/> </index>
-    <index name="getDateSampled" meta_type="DateIndex">                   <indexed_attr value="getDateSampled"/> </index>
-    <index name="getDisposalDate" meta_type="DateIndex">                  <indexed_attr value="getDisposalDate"/> </index>
-    <index name="getDueDate" meta_type="DateIndex">                       <indexed_attr value="getDueDate"/> </index>
-    <index name="getExpiryDate" meta_type="DateIndex">                    <indexed_attr value="getExpiryDate"/> </index>
-    <index name="getSamplingDate" meta_type="DateIndex">                  <indexed_attr value="getSamplingDate"/> </index>
+    <index name="DateDisposed" meta_type="DateIndex">                  <indexed_attr value="DateDisposed"/> </index>
+    <index name="DateExpired" meta_type="DateIndex">                   <indexed_attr value="DateExpired"/> </index>
+    <index name="DateOpened" meta_type="DateIndex">                    <indexed_attr value="DateOpened"/> </index>
+    <index name="DatePublished" meta_type="DateIndex">                 <indexed_attr value="DatePublished"/> </index>
+    <index name="DateSampled" meta_type="DateIndex">                   <indexed_attr value="DateSampled"/> </index>
+    <index name="DisposalDate" meta_type="DateIndex">                  <indexed_attr value="DisposalDate"/> </index>
+    <index name="DueDate" meta_type="DateIndex">                       <indexed_attr value="DueDate"/> </index>
+    <index name="ExpiryDate" meta_type="DateIndex">                    <indexed_attr value="ExpiryDate"/> </index>
+    <index name="SamplingDate" meta_type="DateIndex">                  <indexed_attr value="SamplingDate"/> </index>
 
     <!-- FieldIndex version of the Title and Description indexes -->
     <index name="description" meta_type="FieldIndex">                     <indexed_attr value="Description"/> </index>
     <index name="title" meta_type="FieldIndex">                           <indexed_attr value="Title"/> </index>
 
     <index name="BatchUID" meta_type="FieldIndex">                        <indexed_attr value="BatchUID"/> </index>
-    <index name="getAnalysisCategory" meta_type="KeywordIndex">           <indexed_attr value="getAnalysisCategory"/> </index>
-    <index name="getAnalysisService" meta_type="KeywordIndex">            <indexed_attr value="getAnalysisService"/> </index>
-    <index name="getAnalyst" meta_type="FieldIndex">                      <indexed_attr value="getAnalyst"/> </index>
-    <index name="getAnalysts" meta_type="KeywordIndex">                   <indexed_attr value="getAnalysts"/> </index>
-    <index name="getClientOrderNumber" meta_type="FieldIndex">            <indexed_attr value="getClientOrderNumber"/> </index>
-    <index name="getClientReference" meta_type="FieldIndex">              <indexed_attr value="getClientReference"/> </index>
-    <index name="getClientSampleID" meta_type="FieldIndex">               <indexed_attr value="getClientSampleID"/> </index>
-    <index name="getClientTitle" meta_type="FieldIndex">                  <indexed_attr value="getClientTitle"/> </index>
-    <index name="getClientUID" meta_type="FieldIndex">                    <indexed_attr value="getClientUID"/> </index>
-    <index name="getContactTitle" meta_type="FieldIndex">                 <indexed_attr value="getContactTitle"/> </index>
-    <index name="getFullname" meta_type="FieldIndex">                     <indexed_attr value="getFullname"/> </index>
-    <index name="getInvoiced" meta_type="FieldIndex">                     <indexed_attr value="getInvoiced"/> </index>
-    <index name="getName" meta_type="FieldIndex">                         <indexed_attr value="getName"/> </index>
-    <index name="getObjPositionInParent" meta_type="GopipIndex">          <indexed_attr value="getObjPositionInParent"/> </index>
-    <index name="getParentUID" meta_type="FieldIndex">                    <indexed_attr value="getParentUID"/> </index>
-    <index name="getPreserver" meta_type="FieldIndex">                    <indexed_attr value="getPreserver"/> </index>
-    <index name="getProfileTitle" meta_type="FieldIndex">                 <indexed_attr value="getProfileTitle"/> </index>
-    <index name="getReferenceDefinitionUID" meta_type="FieldIndex">       <indexed_attr value="getReferenceDefinitionUID"/> </index>
-    <index name="getRequestID" meta_type="FieldIndex">                    <indexed_attr value="getRequestID"/> </index>
-    <index name="getSampleID" meta_type="FieldIndex">                     <indexed_attr value="getSampleID"/> </index>
-    <index name="getSamplePointTitle" meta_type="FieldIndex">             <indexed_attr value="getSamplePointTitle"/> </index>
-    <index name="getSamplePointUID" meta_type="FieldIndex">               <indexed_attr value="getSamplePointUID"/> </index>
-    <index name="getSampler" meta_type="FieldIndex">                      <indexed_attr value="getSampler"/> </index>
-    <index name="getSampleTypeTitle" meta_type="FieldIndex">              <indexed_attr value="getSampleTypeTitle"/> </index>
-    <index name="getSampleTypeUID" meta_type="FieldIndex">                <indexed_attr value="getSampleTypeUID"/> </index>
-    <index name="getSampleUID" meta_type="FieldIndex">                    <indexed_attr value="getSampleUID"/> </index>
-    <index name="getServiceTitle" meta_type="FieldIndex">                 <indexed_attr value="getServiceTitle"/> </index>
-    <index name="getUsername" meta_type="FieldIndex">                     <indexed_attr value="getUsername"/> </index>
-    <index name="getWorksheetTemplateTitle" meta_type="FieldIndex">       <indexed_attr value="getWorksheetTemplateTitle"/> </index>
+    <index name="AnalysisCategory" meta_type="KeywordIndex">           <indexed_attr value="AnalysisCategory"/> </index>
+    <index name="AnalysisService" meta_type="KeywordIndex">            <indexed_attr value="AnalysisService"/> </index>
+    <index name="Analyst" meta_type="FieldIndex">                      <indexed_attr value="Analyst"/> </index>
+    <index name="Analysts" meta_type="KeywordIndex">                   <indexed_attr value="Analysts"/> </index>
+    <index name="ClientOrderNumber" meta_type="FieldIndex">            <indexed_attr value="ClientOrderNumber"/> </index>
+    <index name="ClientReference" meta_type="FieldIndex">              <indexed_attr value="ClientReference"/> </index>
+    <index name="ClientSampleID" meta_type="FieldIndex">               <indexed_attr value="ClientSampleID"/> </index>
+    <index name="ClientTitle" meta_type="FieldIndex">                  <indexed_attr value="ClientTitle"/> </index>
+    <index name="ClientUID" meta_type="FieldIndex">                    <indexed_attr value="ClientUID"/> </index>
+    <index name="ContactTitle" meta_type="FieldIndex">                 <indexed_attr value="ContactTitle"/> </index>
+    <index name="Fullname" meta_type="FieldIndex">                     <indexed_attr value="Fullname"/> </index>
+    <index name="Invoiced" meta_type="FieldIndex">                     <indexed_attr value="Invoiced"/> </index>
+    <index name="Name" meta_type="FieldIndex">                         <indexed_attr value="Name"/> </index>
+    <index name="ObjPositionInParent" meta_type="GopipIndex">          <indexed_attr value="ObjPositionInParent"/> </index>
+    <index name="ParentUID" meta_type="FieldIndex">                    <indexed_attr value="ParentUID"/> </index>
+    <index name="Preserver" meta_type="FieldIndex">                    <indexed_attr value="Preserver"/> </index>
+    <index name="ProfileTitle" meta_type="FieldIndex">                 <indexed_attr value="ProfileTitle"/> </index>
+    <index name="ReferenceDefinitionUID" meta_type="FieldIndex">       <indexed_attr value="ReferenceDefinitionUID"/> </index>
+    <index name="RequestID" meta_type="FieldIndex">                    <indexed_attr value="RequestID"/> </index>
+    <index name="SampleID" meta_type="FieldIndex">                     <indexed_attr value="SampleID"/> </index>
+    <index name="SamplePointTitle" meta_type="FieldIndex">             <indexed_attr value="SamplePointTitle"/> </index>
+    <index name="SamplePointUID" meta_type="FieldIndex">               <indexed_attr value="SamplePointUID"/> </index>
+    <index name="Sampler" meta_type="FieldIndex">                      <indexed_attr value="Sampler"/> </index>
+    <index name="SampleTypeTitle" meta_type="FieldIndex">              <indexed_attr value="SampleTypeTitle"/> </index>
+    <index name="SampleTypeUID" meta_type="FieldIndex">                <indexed_attr value="SampleTypeUID"/> </index>
+    <index name="SampleUID" meta_type="FieldIndex">                    <indexed_attr value="SampleUID"/> </index>
+    <index name="ServiceTitle" meta_type="FieldIndex">                 <indexed_attr value="ServiceTitle"/> </index>
+    <index name="Username" meta_type="FieldIndex">                     <indexed_attr value="Username"/> </index>
+    <index name="WorksheetTemplateTitle" meta_type="FieldIndex">       <indexed_attr value="WorksheetTemplateTitle"/> </index>
     <index name="Priority" meta_type="FieldIndex">                        <indexed_attr value="Priority"/> </index>
 
     <column value="path"/>
@@ -59,20 +58,20 @@
     <column value="sortable_title"/>
     <column value="inactive_state"/>
     <column value="cancellation_state"/>
-    <column value="getAnalysts"/>
-    <column value="getSampleID"/>
-    <column value="getRequestID"/>
-    <column value="getClientOrderNumber"/>
-    <column value="getClientReference"/>
-    <column value="getClientSampleID"/>
-    <column value="getContactTitle"/>
-    <column value="getClientTitle"/>
-    <column value="getProfileTitle"/>
-    <column value="getSamplePointTitle"/>
-    <column value="getSampleTypeTitle"/>
-    <column value="getAnalysisCategory"/>
-    <column value="getAnalysisService"/>
-    <column value="getDatePublished"/>
+    <column value="Analysts"/>
+    <column value="SampleID"/>
+    <column value="RequestID"/>
+    <column value="ClientOrderNumber"/>
+    <column value="ClientReference"/>
+    <column value="ClientSampleID"/>
+    <column value="ContactTitle"/>
+    <column value="ClientTitle"/>
+    <column value="ProfileTitle"/>
+    <column value="SamplePointTitle"/>
+    <column value="SampleTypeTitle"/>
+    <column value="AnalysisCategory"/>
+    <column value="AnalysisService"/>
+    <column value="DatePublished"/>
     <column value="DateReceived"/>
-    <column value="getDateSampled"/>
+    <column value="DateSampled"/>
 </object>

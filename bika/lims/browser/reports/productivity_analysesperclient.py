@@ -107,7 +107,7 @@ class Report(BrowserView):
             c_proxies = pc(portal_type="Client", sort_on='sortable_title')
 
         for client in c_proxies:
-            query['getClientUID'] = client.UID
+            query['ClientUID'] = client.UID
             dataline = [{'value': client.Title}, ]
             query['portal_type'] = 'AnalysisRequest'
             ars = pc(query)

@@ -109,7 +109,7 @@ class AnalysesView(BikaListingView):
                 'sortable':False},
             'DueDate': {
                 'title': _('Due Date'),
-                'index': 'getDueDate',
+                'index': 'DueDate',
                 'sortable':False},
         }
 

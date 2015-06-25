@@ -91,7 +91,7 @@ class BaseARImportsView(BikaListingView):
 
         self.columns = {
             'title': {'title': _('Import')},
-            'getClientTitle': {'title': _('Client')},
+            'ClientTitle': {'title': _('Client')},
             'getDateImported': {'title': _('Date Imported')},
             'getStatus': {'title': _('Validity')},
             'getDateApplied': {'title': _('Date Submitted')},
@@ -102,7 +102,7 @@ class BaseARImportsView(BikaListingView):
              'title': _('All'),
              'contentFilter':{},
              'columns': ['title',
-                         'getClientTitle',
+                         'ClientTitle',
                          'getDateImported',
                          'getStatus',
                          'getDateApplied',
@@ -111,14 +111,14 @@ class BaseARImportsView(BikaListingView):
              'title': _('Imported'),
              'contentFilter':{'review_state':'imported'},
              'columns': ['title',
-                         'getClientTitle',
+                         'ClientTitle',
                          'getDateImported',
                          'getStatus']},
             {'id':'submitted',
              'title': _('Applied'),
              'contentFilter':{'review_state':'submitted'},
              'columns': ['title',
-                         'getClientTitle',
+                         'ClientTitle',
                          'getDateImported',
                          'getStatus',
                          'getDateApplied']},
@@ -132,7 +132,7 @@ class BaseARImportsView(BikaListingView):
             obj = items[x]['obj']
             items[x]['replace']['title'] = \
                 "<a href='%s'>%s</a>" % (items[x]['url'], items[x]['title'])
-            items[x]['replace']['getClientTitle'] = \
+            items[x]['replace']['ClientTitle'] = \
                 "<a href='%s'>%s</a>" % (
                         obj.aq_parent.absolute_url(), obj.aq_parent.Title())
 

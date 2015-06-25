@@ -388,7 +388,7 @@ class Worksheet(BaseFolder, HistoryAwareMixin):
                 samples = pc(portal_type='ReferenceSample',
                              review_state='current',
                              inactive_state='active',
-                             getReferenceDefinitionUID=reference_definition_uid)
+                             ReferenceDefinitionUID=reference_definition_uid)
                 if not samples:
                     break
                 samples = [s.getObject() for s in samples]

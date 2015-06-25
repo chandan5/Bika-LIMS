@@ -327,7 +327,7 @@ class AnalysisRequestPublishView(BrowserView):
             memail = member.getProperty('email')
             mhomepage = member.getProperty('home_page')
             pc = getToolByName(self, 'portal_catalog')
-            c = pc(portal_type='Contact', getUsername=member.id)
+            c = pc(portal_type='Contact', Username=member.id)
             c = c[0].getObject() if c else None
             cfullname = c.getFullname() if c else None
             cemail = c.getEmailAddress() if c else None

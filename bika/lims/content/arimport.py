@@ -507,7 +507,7 @@ class ARImport(BaseFolder):
                         # there is no profilekey index
                         c_prox = self.bika_setup_catalog(
                                     portal_type = 'AnalysisProfile',
-                                    getClientUID = client.UID(),
+                                    ClientUID = client.UID(),
                                     getProfileKey = profilekey)
                         if c_prox:
                             obj = c_prox[0].getObject()
@@ -737,7 +737,7 @@ class ARImport(BaseFolder):
         user_id = user.getUserName()
         r = self.portal_catalog(
             portal_type = 'Contact',
-            getUsername = user_id
+            Username = user_id
         )
         if len(r) == 1:
             return r[0].UID
@@ -751,7 +751,7 @@ class ARImport(BaseFolder):
         user_id = user.getUserName()
         r = self.portal_catalog(
             portal_type = 'Contact',
-            getUsername = user_id
+            Username = user_id
         )
         if len(r) == 1:
             return r[0].UID

@@ -66,15 +66,15 @@ def Import(context, request):
         elif override == 'overrideempty':
             over = [True, True]
 
-        sam = ['getRequestID', 'getSampleID', 'getClientSampleID']
+        sam = ['RequestID', 'SampleID', 'ClientSampleID']
         if sample =='requestid':
-            sam = ['getRequestID']
+            sam = ['RequestID']
         if sample == 'sampleid':
-            sam = ['getSampleID']
+            sam = ['SampleID']
         elif sample == 'clientsid':
-            sam = ['getClientSampleID']
+            sam = ['ClientSampleID']
         elif sample == 'sample_clientsid':
-            sam = ['getSampleID', 'getClientSampleID']
+            sam = ['SampleID', 'ClientSampleID']
 
         importer = MasshunterQuantImporter(parser=parser,
                                            context=context,

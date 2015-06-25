@@ -53,7 +53,7 @@ function ARTemplateEditView() {
             }
             var obj = data.objects[0];
             var puid = obj.UID;
-            $(samplepoint).attr("search_query", $.toJSON({"getClientUID": obj.UID}));
+            $(samplepoint).attr("search_query", $.toJSON({"ClientUID": obj.UID}));
             referencewidget_lookups([$(samplepoint)]);
         });
     }

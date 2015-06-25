@@ -192,7 +192,7 @@ class AnalysisRequestWorkflowAction(WorkflowAction):
             if not checkPermission(PreserveSample, part):
                 continue
             # grab this object's Preserver and DatePreserved from the form
-            Preserver = form['getPreserver'][0][obj_uid].strip()
+            Preserver = form['Preserver'][0][obj_uid].strip()
             Preserver = Preserver and Preserver or ''
             DatePreserved = form['getDatePreserved'][0][obj_uid].strip()
             DatePreserved = DatePreserved and DateTime(DatePreserved) or ''

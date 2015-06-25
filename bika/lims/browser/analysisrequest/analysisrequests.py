@@ -55,10 +55,10 @@ class AnalysisRequestsView(BikaListingView):
         user_is_preserver = 'Preserver' in member.getRoles()
 
         self.columns = {
-            'getRequestID': {'title': _('Request ID'),
-                             'index': 'getRequestID'},
-            'getClientOrderNumber': {'title': _('Client Order'),
-                                     'index': 'getClientOrderNumber',
+            'RequestID': {'title': _('Request ID'),
+                             'index': 'RequestID'},
+            'ClientOrderNumber': {'title': _('Client Order'),
+                                     'index': 'ClientOrderNumber',
                                      'toggle': True},
             'Creator': {'title': PMF('Creator'),
                                      'index': 'Creator',
@@ -72,19 +72,19 @@ class AnalysisRequestsView(BikaListingView):
             'SubGroup': {'title': _('Sub-group')},
             'Client': {'title': _('Client'),
                        'toggle': True},
-            'getClientReference': {'title': _('Client Ref'),
-                                   'index': 'getClientReference',
+            'ClientReference': {'title': _('Client Ref'),
+                                   'index': 'ClientReference',
                                    'toggle': True},
-            'getClientSampleID': {'title': _('Client SID'),
-                                  'index': 'getClientSampleID',
+            'ClientSampleID': {'title': _('Client SID'),
+                                  'index': 'ClientSampleID',
                                   'toggle': True},
             'ClientContact': {'title': _('Contact'),
                                  'toggle': False},
-            'getSampleTypeTitle': {'title': _('Sample Type'),
-                                   'index': 'getSampleTypeTitle',
+            'SampleTypeTitle': {'title': _('Sample Type'),
+                                   'index': 'SampleTypeTitle',
                                    'toggle': True},
-            'getSamplePointTitle': {'title': _('Sample Point'),
-                                    'index': 'getSamplePointTitle',
+            'SamplePointTitle': {'title': _('Sample Point'),
+                                    'index': 'SamplePointTitle',
                                     'toggle': False},
             'getStorageLocation': {'title': _('Storage Location'),
                                     'toggle': False},
@@ -97,32 +97,32 @@ class AnalysisRequestsView(BikaListingView):
             'AdHoc': {'title': _('Ad-Hoc'),
                       'toggle': False},
             'SamplingDate': {'title': _('Sampling Date'),
-                             'index': 'getSamplingDate',
+                             'index': 'SamplingDate',
                              'toggle': True},
-            'getDateSampled': {'title': _('Date Sampled'),
-                               'index': 'getDateSampled',
+            'DateSampled': {'title': _('Date Sampled'),
+                               'index': 'DateSampled',
                                'toggle': SamplingWorkflowEnabled,
                                'input_class': 'datepicker_nofuture',
                                'input_width': '10'},
-            'getSampler': {'title': _('Sampler'),
+            'Sampler': {'title': _('Sampler'),
                            'toggle': SamplingWorkflowEnabled},
             'getDatePreserved': {'title': _('Date Preserved'),
                                  'toggle': user_is_preserver,
                                  'input_class': 'datepicker_nofuture',
                                  'input_width': '10',
                                  'sortable': False},  # no datesort without index
-            'getPreserver': {'title': _('Preserver'),
+            'Preserver': {'title': _('Preserver'),
                              'toggle': user_is_preserver},
             'DateReceived': {'title': _('Date Received'),
                                 'index': 'DateReceived',
                                 'toggle': False},
-            'getDatePublished': {'title': _('Date Published'),
-                                 'index': 'getDatePublished',
+            'DatePublished': {'title': _('Date Published'),
+                                 'index': 'DatePublished',
                                  'toggle': False},
             'state_title': {'title': _('State'),
                             'index': 'review_state'},
-            'getProfileTitle': {'title': _('Profile'),
-                                'index': 'getProfileTitle',
+            'ProfileTitle': {'title': _('Profile'),
+                                'index': 'ProfileTitle',
                                 'toggle': False},
             'getAnalysesNum': {'title': _('Number of Analyses'),
                                'index': 'getAnalysesNum',
@@ -149,30 +149,30 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
+                        'ClientOrderNumber',
+                        'ClientReference',
                         'ClientContact',
-                        'getClientSampleID',
-                        'getProfileTitle',
+                        'ClientSampleID',
+                        'ProfileTitle',
                         'getTemplateTitle',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
                         'SamplingDate',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
                         'getAnalysesNum',
                         'state_title']},
@@ -189,25 +189,25 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'Preserver',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
@@ -223,29 +223,29 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'getAnalysesNum',
                         'DateReceived']},
             {'id': 'to_be_verified',
@@ -259,29 +259,29 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'getAnalysesNum',
                         'DateReceived']},
             {'id': 'verified',
@@ -291,29 +291,29 @@ class AnalysisRequestsView(BikaListingView):
                                'sort_order': 'reverse'},
              'transitions': [{'id': 'publish'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'getAnalysesNum',
                         'DateReceived']},
             {'id': 'published',
@@ -323,32 +323,32 @@ class AnalysisRequestsView(BikaListingView):
                                'sort_order': 'reverse'},
              'transitions': [{'id': 'republish'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
                         'getAnalysesNum',
-                        'getDatePublished']},
+                        'DatePublished']},
             {'id': 'cancelled',
              'title': _('Cancelled'),
              'contentFilter': {'cancellation_state': 'cancelled',
@@ -360,31 +360,31 @@ class AnalysisRequestsView(BikaListingView):
                                'sort_order': 'reverse'},
              'transitions': [{'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
-                        'getDatePublished',
+                        'DatePublished',
                         'getAnalysesNum',
                         'state_title']},
             {'id': 'invalid',
@@ -394,32 +394,32 @@ class AnalysisRequestsView(BikaListingView):
                                'sort_order': 'reverse'},
              'transitions': [],
              'custom_actions': [],
-             'columns':['getRequestID',
+             'columns':['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
                         'getAnalysesNum',
-                        'getDatePublished']},
+                        'DatePublished']},
             {'id': 'assigned',
              'title': "<img title='%s'\
                        src='%s/++resource++bika.lims.images/assigned.png'/>" % (
@@ -438,29 +438,29 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
                         'getAnalysesNum',
                         'state_title']},
@@ -483,30 +483,30 @@ class AnalysisRequestsView(BikaListingView):
                              {'id': 'cancel'},
                              {'id': 'reinstate'}],
              'custom_actions': [],
-             'columns': ['getRequestID',
+             'columns': ['RequestID',
                         'getSample',
                         'BatchID',
                         'SubGroup',
                         'Client',
-                        'getProfileTitle',
+                        'ProfileTitle',
                         'getTemplateTitle',
                         'Creator',
                         'Created',
-                        'getClientOrderNumber',
-                        'getClientReference',
-                        'getClientSampleID',
+                        'ClientOrderNumber',
+                        'ClientReference',
+                        'ClientSampleID',
                         'ClientContact',
-                        'getSampleTypeTitle',
-                        'getSamplePointTitle',
+                        'SampleTypeTitle',
+                        'SamplePointTitle',
                         'getStorageLocation',
                         'SamplingDeviation',
                         'Priority',
                         'AdHoc',
                         'SamplingDate',
-                        'getDateSampled',
-                        'getSampler',
+                        'DateSampled',
+                        'Sampler',
                         'getDatePreserved',
-                        'getPreserver',
+                        'Preserver',
                         'DateReceived',
                         'getAnalysesNum',
                         'state_title']},
@@ -539,9 +539,9 @@ class AnalysisRequestsView(BikaListingView):
                 items[x]['replace']['Client'] = "<a href='%s'>%s</a>" % \
                     (obj.aq_parent.absolute_url(), obj.aq_parent.Title())
             items[x]['Creator'] = self.user_fullname(obj.Creator())
-            items[x]['getRequestID'] = obj.getRequestID()
-            items[x]['replace']['getRequestID'] = "<a href='%s'>%s</a>" % \
-                 (url, items[x]['getRequestID'])
+            items[x]['RequestID'] = obj.getRequestID()
+            items[x]['replace']['RequestID'] = "<a href='%s'>%s</a>" % \
+                 (url, items[x]['RequestID'])
             items[x]['getSample'] = sample
             items[x]['replace']['getSample'] = \
                 "<a href='%s'>%s</a>" % (sample.absolute_url(), sample.Title())
@@ -565,7 +565,7 @@ class AnalysisRequestsView(BikaListingView):
             samplingdate = obj.getSample().getSamplingDate()
             items[x]['SamplingDate'] = self.ulocalized_time(samplingdate, long_format=1)
             items[x]['DateReceived'] = self.ulocalized_time(obj.getDateReceived())
-            items[x]['getDatePublished'] = self.ulocalized_time(obj.getDatePublished())
+            items[x]['DatePublished'] = self.ulocalized_time(obj.getDatePublished())
 
             deviation = sample.getSamplingDeviation()
             items[x]['SamplingDeviation'] = deviation and deviation.Title() or ''
@@ -596,7 +596,7 @@ class AnalysisRequestsView(BikaListingView):
                 after_icons += "<img src='%s/++resource++bika.lims.images/hazardous.png' title='%s'>" % \
                     (self.portal_url, t(_("Hazardous")))
             if after_icons:
-                items[x]['after']['getRequestID'] = after_icons
+                items[x]['after']['RequestID'] = after_icons
 
             items[x]['Created'] = self.ulocalized_time(obj.created())
 
@@ -615,18 +615,18 @@ class AnalysisRequestsView(BikaListingView):
                     datesampled = self.ulocalized_time(
                         DateTime(),
                         long_format=1)
-                    items[x]['class']['getDateSampled'] = 'provisional'
+                    items[x]['class']['DateSampled'] = 'provisional'
                 sampler = sample.getSampler().strip()
                 if sampler:
-                    items[x]['replace']['getSampler'] = self.user_fullname(sampler)
+                    items[x]['replace']['Sampler'] = self.user_fullname(sampler)
                 if 'Sampler' in member.getRoles() and not sampler:
                     sampler = member.id
-                    items[x]['class']['getSampler'] = 'provisional'
+                    items[x]['class']['Sampler'] = 'provisional'
             else:
                 datesampled = ''
                 sampler = ''
-            items[x]['getDateSampled'] = datesampled
-            items[x]['getSampler'] = sampler
+            items[x]['DateSampled'] = datesampled
+            items[x]['Sampler'] = sampler
 
             # sampling workflow - inline edits for Sampler and Date Sampled
             checkPermission = self.context.portal_membership.checkPermission
@@ -634,38 +634,38 @@ class AnalysisRequestsView(BikaListingView):
             if state == 'to_be_sampled' \
                     and checkPermission(SampleSample, obj) \
                     and not samplingdate > DateTime():
-                items[x]['required'] = ['getSampler', 'getDateSampled']
-                items[x]['allow_edit'] = ['getSampler', 'getDateSampled']
+                items[x]['required'] = ['Sampler', 'DateSampled']
+                items[x]['allow_edit'] = ['Sampler', 'DateSampled']
                 samplers = getUsers(sample, ['Sampler', 'LabManager', 'Manager'])
                 username = member.getUserName()
                 users = [({'ResultValue': u, 'ResultText': samplers.getValue(u)})
                          for u in samplers]
-                items[x]['choices'] = {'getSampler': users}
+                items[x]['choices'] = {'Sampler': users}
                 Sampler = sampler and sampler or \
                     (username in samplers.keys() and username) or ''
-                items[x]['getSampler'] = Sampler
+                items[x]['Sampler'] = Sampler
 
             # These don't exist on ARs
             # XXX This should be a list of preservers...
-            items[x]['getPreserver'] = ''
+            items[x]['Preserver'] = ''
             items[x]['getDatePreserved'] = ''
 
             # inline edits for Preserver and Date Preserved
             checkPermission = self.context.portal_membership.checkPermission
             if checkPermission(PreserveSample, obj):
-                items[x]['required'] = ['getPreserver', 'getDatePreserved']
-                items[x]['allow_edit'] = ['getPreserver', 'getDatePreserved']
+                items[x]['required'] = ['Preserver', 'getDatePreserved']
+                items[x]['allow_edit'] = ['Preserver', 'getDatePreserved']
                 preservers = getUsers(obj, ['Preserver', 'LabManager', 'Manager'])
                 username = member.getUserName()
                 users = [({'ResultValue': u, 'ResultText': preservers.getValue(u)})
                          for u in preservers]
-                items[x]['choices'] = {'getPreserver': users}
+                items[x]['choices'] = {'Preserver': users}
                 preserver = username in preservers.keys() and username or ''
-                items[x]['getPreserver'] = preserver
+                items[x]['Preserver'] = preserver
                 items[x]['getDatePreserved'] = self.ulocalized_time(
                     DateTime(),
                     long_format=1)
-                items[x]['class']['getPreserver'] = 'provisional'
+                items[x]['class']['Preserver'] = 'provisional'
                 items[x]['class']['getDatePreserved'] = 'provisional'
 
             # Submitting user may not verify results
@@ -693,13 +693,13 @@ class AnalysisRequestsView(BikaListingView):
         new_states = []
         for i, state in enumerate(self.review_states):
             if state['id'] == self.review_state:
-                if 'getSampler' not in toggle_cols \
-                   or 'getDateSampled' not in toggle_cols:
+                if 'Sampler' not in toggle_cols \
+                   or 'DateSampled' not in toggle_cols:
                     if 'hide_transitions' in state:
                         state['hide_transitions'].append('sample')
                     else:
                         state['hide_transitions'] = ['sample', ]
-                if 'getPreserver' not in toggle_cols \
+                if 'Preserver' not in toggle_cols \
                    or 'getDatePreserved' not in toggle_cols:
                     if 'hide_transitions' in state:
                         state['hide_transitions'].append('preserve')

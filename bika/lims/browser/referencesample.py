@@ -114,7 +114,7 @@ class ReferenceAnalysesView(AnalysesView):
             'Captured': {'title': _('Captured'), 'toggle':True},
             'Uncertainty': {'title': _('+-'), 'toggle':True},
             'DueDate': {'title': _('Due Date'),
-                        'index': 'getDueDate',
+                        'index': 'DueDate',
                         'toggle':True},
             'retested': {'title': _('Retested'), 'type':'boolean', 'toggle':True},
             'state_title': {'title': _('State'), 'toggle':True},
@@ -312,7 +312,7 @@ class ReferenceSamplesView(BikaListingView):
                 'toggle':True},
             'DateSampled': {
                 'title': _('Date Sampled'),
-                'index': 'getDateSampled',
+                'index': 'DateSampled',
                 'toggle':True},
             'DateReceived': {
                 'title': _('Date Received'),
@@ -320,7 +320,7 @@ class ReferenceSamplesView(BikaListingView):
                 'toggle':True},
             'ExpiryDate': {
                 'title': _('Expiry Date'),
-                'index': 'getExpiryDate',
+                'index': 'ExpiryDate',
                 'toggle':True},
             'state_title': {
                 'title': _('State'),

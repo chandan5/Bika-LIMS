@@ -400,7 +400,7 @@ class WorksheetAnalysesView(AnalysesView):
             'Pos': {'title': _('Position')},
             'DueDate': {'title': _('Due Date')},
             'Service': {'title': _('Analysis')},
-            'getPriority': {'title': _('Priority')},
+            'Priority': {'title': _('Priority')},
             'Method': {'title': _('Method')},
             'DetectionLimit': {
                 'title': _('DL'),
@@ -654,7 +654,7 @@ class WorksheetAnalysesView(AnalysesView):
             pos_text += "</table>"
 
             items[x]['replace']['Pos'] = pos_text
-            items[x]['getPriority'] = '' #Icon get added by adapter
+            items[x]['Priority'] = '' #Icon get added by adapter
 
         for k,v in self.columns.items():
             self.columns[k]['sortable'] = False
@@ -867,13 +867,13 @@ class AddAnalysesView(BikaListingView):
         self.columns = {
             'Client': {
                 'title': _('Client'),
-                'index':'getClientTitle'},
-            'getClientOrderNumber': {
+                'index':'ClientTitle'},
+            'ClientOrderNumber': {
                 'title': _('Order'),
-                'index': 'getClientOrderNumber'},
-            'getRequestID': {
+                'index': 'ClientOrderNumber'},
+            'RequestID': {
                 'title': _('Request ID'),
-                'index': 'getRequestID'},
+                'index': 'RequestID'},
             'Priority': {
                 'title': _('Priority'),
                 'index': 'Priority'},
@@ -886,9 +886,9 @@ class AddAnalysesView(BikaListingView):
             'DateReceived': {
                 'title': _('Date Received'),
                 'index': 'DateReceived'},
-            'getDueDate': {
+            'DueDate': {
                 'title': _('Due Date'),
-                'index': 'getDueDate'},
+                'index': 'DueDate'},
         }
         self.filter_indexes = ['Title',]
         self.review_states = [
@@ -897,13 +897,13 @@ class AddAnalysesView(BikaListingView):
              'contentFilter': {},
              'transitions': [{'id':'assign'}, ],
              'columns':['Client',
-                        'getClientOrderNumber',
-                        'getRequestID',
+                        'ClientOrderNumber',
+                        'RequestID',
                         'Priority',
                         'CategoryTitle',
                         'Title',
                         'DateReceived',
-                        'getDueDate'],
+                        'DueDate'],
             },
         ]
 
@@ -964,10 +964,10 @@ class AddAnalysesView(BikaListingView):
             obj = items[x]['obj']
             service = obj.getService()
             client = obj.aq_parent.aq_parent
-            items[x]['getClientOrderNumber'] = obj.getClientOrderNumber()
+            items[x]['ClientOrderNumber'] = obj.getClientOrderNumber()
             items[x]['DateReceived'] = self.ulocalized_time(obj.getDateReceived())
             DueDate = obj.getDueDate()
-            items[x]['getDueDate'] = self.ulocalized_time(DueDate)
+            items[x]['DueDate'] = self.ulocalized_time(DueDate)
             if DueDate < DateTime():
                 items[x]['after']['DueDate'] = '<img width="16" height="16" src="%s/++resource++bika.lims.images/late.png" title="%s"/>' % \
                     (self.context.absolute_url(),
@@ -978,9 +978,9 @@ class AddAnalysesView(BikaListingView):
                 url = obj.aq_parent.absolute_url() + "/manage_results"
             else:
                 url = obj.aq_parent.absolute_url()
-            items[x]['getRequestID'] = obj.aq_parent.getRequestID()
-            items[x]['replace']['getRequestID'] = "<a href='%s'>%s</a>" % \
-                 (url, items[x]['getRequestID'])
+            items[x]['RequestID'] = obj.aq_parent.getRequestID()
+            items[x]['replace']['RequestID'] = "<a href='%s'>%s</a>" % \
+                 (url, items[x]['RequestID'])
             items[x]['Priority'] = ''
 
 

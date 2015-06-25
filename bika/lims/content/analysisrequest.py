@@ -1679,7 +1679,7 @@ class AnalysisRequest(BaseFolder):
         user_id = user.getUserName()
         pc = getToolByName(self, 'portal_catalog')
         r = pc(portal_type='Contact',
-               getUsername=user_id)
+               Username=user_id)
         if len(r) == 1:
             return r[0].UID
 
@@ -1796,7 +1796,7 @@ class AnalysisRequest(BaseFolder):
         # 1 or 2: rr = Client specs where (spec.Title) matches (ar.SampleType.Title)
         for folder in self.aq_parent, self.bika_setup.bika_analysisspecs:
             proxies = bsc(portal_type='AnalysisSpec',
-                          getSampleTypeTitle=stt,
+                          SampleTypeTitle=stt,
                           ClientUID=folder.UID())
             if proxies:
                 rr = dicts_to_dict(proxies[0].getObject().getResultsRange(), 'keyword')
@@ -2219,7 +2219,7 @@ class AnalysisRequest(BaseFolder):
     def workflow_script_publish(self):
         if skip(self, "publish"):
             return
-        self.reindexObject(idxs=["review_state", "getDatePublished", ])
+        self.reindexObject(idxs=["review_state", "DatePublished", ])
         if not "publish all analyses" in self.REQUEST['workflow_skiplist']:
             # publish all analyses in this AR. (except not requested ones)
             analyses = self.getAnalyses(review_state='verified')

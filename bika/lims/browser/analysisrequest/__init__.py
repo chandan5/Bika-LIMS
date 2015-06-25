@@ -87,7 +87,7 @@ class ReferenceWidgetVocabulary(DefaultReferenceWidgetVocabulary):
         if 'portal_type' in base_query \
         and (base_query['portal_type'] == 'Sample'
              or base_query['portal_type'][0] == 'Sample'):
-            base_query['getClientUID'] = self.context.aq_parent.UID()
+            base_query['ClientUID'] = self.context.aq_parent.UID()
             self.request['base_query'] = json.dumps(base_query)
         return DefaultReferenceWidgetVocabulary.__call__(self)
 

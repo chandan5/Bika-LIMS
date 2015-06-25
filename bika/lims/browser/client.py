@@ -93,10 +93,10 @@ class ClientWorkflowAction(AnalysisRequestWorkflowAction):
 
                 # grab this object's Sampler and DateSampled from the form
                 # (if the columns are available and edit controls exist)
-                if 'getSampler' in form and 'getDateSampled' in form:
+                if 'Sampler' in form and 'DateSampled' in form:
                     try:
-                        Sampler = form['getSampler'][0][obj_uid].strip()
-                        DateSampled = form['getDateSampled'][0][obj_uid].strip()
+                        Sampler = form['Sampler'][0][obj_uid].strip()
+                        DateSampled = form['DateSampled'][0][obj_uid].strip()
                     except KeyError:
                         continue
                     Sampler = Sampler and Sampler or ''
@@ -171,9 +171,9 @@ class ClientWorkflowAction(AnalysisRequestWorkflowAction):
 
                 # grab this object's Preserver and DatePreserved from the form
                 # (if the columns are available and edit controls exist)
-                if 'getPreserver' in form and 'getDatePreserved' in form:
+                if 'Preserver' in form and 'getDatePreserved' in form:
                     try:
-                        Preserver = form['getPreserver'][0][obj_uid].strip()
+                        Preserver = form['Preserver'][0][obj_uid].strip()
                         DatePreserved = form['getDatePreserved'][0][obj_uid].strip()
                     except KeyError:
                         continue
@@ -247,7 +247,7 @@ class ClientBatchesView(BatchFolderContentsView):
         pc = getToolByName(self.context, "portal_catalog")
         batches = {}
         for ar in pc(portal_type = 'AnalysisRequest',
-                     getClientUID = self.context.UID()):
+                     ClientUID = self.context.UID()):
             ar = ar.getObject()
             batch = ar.getBatch()
             if batch is not None:
@@ -512,7 +512,7 @@ class ClientAnalysisSpecsView(BikaListingView):
         self.contentFilter = {
             'portal_type': 'AnalysisSpec',
             'sort_on':'sortable_title',
-            'getClientUID': context.UID(),
+            'ClientUID': context.UID(),
             'path': {
                 "query": "/".join(context.getPhysicalPath()),
                 "level" : 0
@@ -533,7 +533,7 @@ class ClientAnalysisSpecsView(BikaListingView):
             'Title': {'title': _('Title'),
                            'index': 'title'},
             'SampleType': {'title': _('Sample Type'),
-                           'index': 'getSampleTypeTitle'},
+                           'index': 'SampleTypeTitle'},
         }
         self.review_states = [
             {'id':'default',
@@ -590,13 +590,13 @@ class SetSpecsToLabDefaults(BrowserView):
 
         # find and remove existing specs
         cs = bsc(portal_type = 'AnalysisSpec',
-                  getClientUID = self.context.UID())
+                  ClientUID = self.context.UID())
         if cs:
             self.context.manage_delObjects([s.id for s in cs])
 
         # find and duplicate lab specs
         ls = bsc(portal_type = 'AnalysisSpec',
-                 getClientUID = self.context.bika_setup.bika_analysisspecs.UID())
+                 ClientUID = self.context.bika_setup.bika_analysisspecs.UID())
         ls = [s.getObject() for s in ls]
         for labspec in ls:
             clientspec = _createObjectByType("AnalysisSpec", self.context, tmpID())
@@ -733,8 +733,8 @@ class ClientContactsView(BikaListingView):
         self.description = ""
 
         self.columns = {
-            'getFullname': {'title': _('Full Name'),
-                            'index': 'getFullname'},
+            'Fullname': {'title': _('Full Name'),
+                            'index': 'Fullname'},
             'Username': {'title': _('User Name')},
             'getEmailAddress': {'title': _('Email Address')},
             'getBusinessPhone': {'title': _('Business Phone')},
@@ -745,7 +745,7 @@ class ClientContactsView(BikaListingView):
              'title': _('Active'),
              'contentFilter': {'inactive_state': 'active'},
              'transitions': [{'id':'deactivate'}, ],
-             'columns': ['getFullname',
+             'columns': ['Fullname',
                          'Username',
                          'getEmailAddress',
                          'getBusinessPhone',
@@ -754,7 +754,7 @@ class ClientContactsView(BikaListingView):
              'title': _('Dormant'),
              'contentFilter': {'inactive_state': 'inactive'},
              'transitions': [{'id':'activate'}, ],
-             'columns': ['getFullname',
+             'columns': ['Fullname',
                          'Username',
                          'getEmailAddress',
                          'getBusinessPhone',
@@ -762,7 +762,7 @@ class ClientContactsView(BikaListingView):
             {'id':'all',
              'title': _('All'),
              'contentFilter':{},
-             'columns': ['getFullname',
+             'columns': ['Fullname',
                          'Username',
                          'getEmailAddress',
                          'getBusinessPhone',
@@ -775,15 +775,15 @@ class ClientContactsView(BikaListingView):
             if not items[x].has_key('obj'): continue
 
             obj = items[x]['obj']
-            items[x]['getFullname'] = obj.getFullname()
+            items[x]['Fullname'] = obj.getFullname()
             items[x]['getEmailAddress'] = obj.getEmailAddress()
             items[x]['getBusinessPhone'] = obj.getBusinessPhone()
             items[x]['getMobilePhone'] = obj.getMobilePhone()
             username = obj.getUsername()
             items[x]['Username'] = username and username or ''
 
-            items[x]['replace']['getFullname'] = "<a href='%s'>%s</a>" % \
-                 (items[x]['url'], items[x]['getFullname'])
+            items[x]['replace']['Fullname'] = "<a href='%s'>%s</a>" % \
+                 (items[x]['url'], items[x]['Fullname'])
 
             if items[x]['getEmailAddress']:
                 items[x]['replace']['getEmailAddress'] = "<a href='mailto:%s'>%s</a>" % \
@@ -808,7 +808,7 @@ class ReferenceWidgetVocabulary(DefaultReferenceWidgetVocabulary):
         base_query = json.loads(self.request['base_query'])
         portal_type = base_query.get('portal_type', [])
         if 'Contact' in portal_type:
-            base_query['getParentUID'] = [self.context.UID(),]
+            base_query['ParentUID'] = [self.context.UID(),]
         self.request['base_query'] = json.dumps(base_query)
         return DefaultReferenceWidgetVocabulary.__call__(self)
 
