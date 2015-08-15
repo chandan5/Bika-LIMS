@@ -11,4 +11,11 @@
         permission="zope2.View"
     />
 
+    <adapter
+        for="bika.lims.reports.interfaces.ISamplesReceivedVsReported"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_samplesreceivedvsreported.Report"
+        permission="zope2.View"
+    />
+
 </configure>

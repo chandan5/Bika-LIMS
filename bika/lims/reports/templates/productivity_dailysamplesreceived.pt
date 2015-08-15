@@ -37,7 +37,6 @@ Available attributes:
 
 <h1 i18n:translate="">Daily samples received</h1>
 <!-- <h3 i18n:translate="">Samples received for a date range</h3> -->
-
 <!-- Summary -->
 <table class="bika-report-parms" summary="Parameters">
     <tr tal:repeat="line parameters">

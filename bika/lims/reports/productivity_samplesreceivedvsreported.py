@@ -11,7 +11,7 @@ from bika.lims import bikaMessageFactory as _
 
 class Report(BrowserView):
     template = ViewPageTemplateFile(
-        "templates/productivity_dailysamplesreceived.pt")
+        "templates/productivity_samplesreceivedvsreported.pt")
 
     def __init__(self, context, request={}):
         self.context = context
@@ -74,7 +74,7 @@ class Report(BrowserView):
         base_query = getattr(self.context, 'base_query', False)
         if base_query:
             parsedquery.update(base_query)
-        import pdb; pdb.set_trace()
+
         # Always restrict to Client-only objects if this is client contact user
         client = logged_in_client(self.context)
         if client:
@@ -83,39 +83,73 @@ class Report(BrowserView):
 
         samples = catalog(parsedquery)
 
-        datalines = []
-        analyses_count = 0
+        datalines = {}
+        footlines = {}
+        total_received_count = 0
+        total_published_count = 0
+
         for sample in samples:
             sample = sample.getObject()
 
-            # For each sample, retrieve the analyses and generate
-            # a data line for each one
+            # For each sample, retrieve check is has results published
+            # and add it to datalines
+            published = False
             analyses = sample.getAnalyses({})
             for analysis in analyses:
                 analysis = analysis.getObject()
-                dataline = {'AnalysisKeyword': analysis.getKeyword(),
-                            'AnalysisTitle': analysis.getServiceTitle(),
-                            'SampleID': sample.getSampleID(),
-                            'SampleType': sample.getSampleType().Title(),
-                            'SampleDateReceived': self.ulocalized_time(
-                                sample.getDateReceived(), long_format=1),
-                            'SampleSamplingDate': self.ulocalized_time(
-                                sample.getSamplingDate(), long_format=1)}
-                datalines.append(dataline)
-                analyses_count += 1
+                if not (analysis.getDatePublished() is None):
+                    published = True
+                    break
 
+            datereceived = sample.getDateReceived()
+            monthyear = datereceived.strftime("%B") + " " + datereceived.strftime(
+                "%Y")
+            received = 1
+            publishedcnt = published and 1 or 0
+            if (monthyear in datalines):
+                received = datalines[monthyear]['ReceivedCount'] + 1
+                publishedcnt = published and datalines[monthyear][
+                                                 'PublishedCount'] + 1 or \
+                               datalines[monthyear]['PublishedCount']
+            ratio = publishedcnt / received
+            dataline = {'MonthYear': monthyear,
+                        'ReceivedCount': received,
+                        'PublishedCount': publishedcnt,
+                        'UnpublishedCount': received - publishedcnt,
+                        'Ratio': ratio,
+                        'RatioPercentage': '%02d' % (
+                        100 * (float(publishedcnt) / float(received))) + '%'}
+            datalines[monthyear] = dataline
+
+            total_received_count += 1
+            total_published_count = published and total_published_count + 1 or total_published_count
+
+        # Footer total data
+        if (total_received_count == 0):
+            ratio = "undefined"
+            ratioPercentage = "undefined"
+        else:
+            ratio = total_published_count / total_received_count
+            ratioPercentage = '%02d' % (100 * (
+                    float(total_published_count) / float(
+                        total_received_count))) + '%'
+        
+        footline = {'ReceivedCount': total_received_count,
+                    'PublishedCount': total_published_count,
+                    'UnpublishedCount': total_received_count - total_published_count,
+                    'Ratio': ratio,
+                    'RatioPercentage': ratioPercentage
+        }
         self.report_data['datalines'] = datalines
         # Footer total data
-        footlines = []
-        footline = {'TotalCount': analyses_count}
-        footlines.append(footline)
+        footlines['Total'] = footline
         self.report_data['footlines'] = footlines
 
         if self.request.get('output_format', '') == 'CSV':
             import csv
             import StringIO
             import datetime
-
+            # NEED TO CHANGE FIELDNAMES FOR DIFFERENT REPORTS 
             fieldnames = [
                 'SampleID',
                 'SampleType',
