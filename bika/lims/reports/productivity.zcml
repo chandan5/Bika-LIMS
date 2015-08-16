@@ -32,5 +32,11 @@
         permission="zope2.View"
     />
 
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesPerClient"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_analysesperclient.Report"
+        permission="zope2.View"
+    />
     
 </configure>

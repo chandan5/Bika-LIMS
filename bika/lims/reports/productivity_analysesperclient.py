@@ -11,7 +11,7 @@ from bika.lims import bikaMessageFactory as _
 
 class Report(BrowserView):
     template = ViewPageTemplateFile(
-        "templates/productivity_analysesperservice.pt")
+        "templates/report_out.pt")
 
     def __init__(self, context, request={}):
         self.context = context
@@ -77,62 +77,75 @@ class Report(BrowserView):
         if base_query:
             parsedquery.update(base_query)
         import pdb; pdb.set_trace()
-        # Always restrict to Client-only objects if this is client contact user
+        
+        headings = {}
         client = logged_in_client(self.context)
         if client:
+            # Always restrict to Client-only objects if this is client contact user
             parsedquery['path'] = \
                 {'query': '/'.join(client.getPhysicalPath()), "level": 0}
+            headings['header'] = _("Analysis requests and analyses")
+            headings['subheader'] = _("Number of Analysis requests and analyses")
+        else:
+            headings['header'] = _("Analysis requests and analyses per client")
+            headings['subheader'] = _(
+                "Number of Analysis requests and analyses per client")
 
-        headings = {}
-        headings['header'] = _("Analyses per analysis service")
-        headings['subheader'] = _(
-            "Number of analyses requested per analysis service")
         self.report_data['headings'] = headings
 
-        formats = {'columns': 2,
-                   'col_heads': [_('Analysis service'), _('Number of analyses')],
-                   'class': '',
-        }
+        formats = {'columns': 3,
+                   'col_heads': [_('Client'),
+                                 _('Number of requests'),
+                                 _('Number of analyses')],
+                   'class': ''}
         self.report_data['formats'] = formats
+
+        if client:
+            c_proxies = catalog(portal_type="Client", UID=client.UID())
+        else:
+            c_proxies = catalog(portal_type="Client", sort_on='sortable_title')
 
         samples = catalog(parsedquery)
         datalines = []
-        count_all = 0
-        for cat in catalog(portal_type="AnalysisCategory",
-                      sort_on='sortable_title'):
-            dataline = [{'value': cat.Title,
-                         'class': 'category_heading',
-                         'colspan': 2}, ]
+        count_all_ars = 0
+        count_all_analyses = 0
+        for client in c_proxies:
+            parsedquery['ClientUID'] = client.UID
+            dataline = [{'value': client.Title}, ]
+            parsedquery['portal_type'] = 'AnalysisRequest'
+            ars = catalog(parsedquery)
+            count_ars = len(ars)
+            dataitem = {'value': count_ars}
+            dataline.append(dataitem)
+
+            parsedquery['portal_type'] = 'Analysis'
+            analyses = catalog(parsedquery)
+            count_analyses = len(analyses)
+            dataitem = {'value': count_analyses}
+            dataline.append(dataitem)
+
             datalines.append(dataline)
-            for service in catalog(portal_type="AnalysisService",
-                              CategoryUID=cat.UID,
-                              sort_on='sortable_title'):
-                parsedquery['ServiceUID'] = service.UID
-                analyses = catalog(parsedquery)
-                count_analyses = len(analyses)
 
-                dataline = []
-                dataitem = {'value': service.Title}
-                dataline.append(dataitem)
-                dataitem = {'value': count_analyses}
-
-                dataline.append(dataitem)
-
-                datalines.append(dataline)
-
-                count_all += count_analyses
+            count_all_analyses += count_analyses
+            count_all_ars += count_ars
 
         self.report_data['datalines'] = datalines
         
         # footer data
         footlines = []
-        footline = []
-        footitem = {'value': _('Total'),
-                    'class': 'total_label'}
-        footline.append(footitem)
-        footitem = {'value': count_all}
-        footline.append(footitem)
-        footlines.append(footline)
+        if not client:
+            footline = []
+            footitem = {'value': _('Total'),
+                        'class': 'total_label'}
+            footline.append(footitem)
+
+            footitem = {'value': count_all_ars}
+            footline.append(footitem)
+            footitem = {'value': count_all_analyses}
+            footline.append(footitem)
+
+            footlines.append(footline)
+
         self.report_data['footlines'] = footlines
         import pdb; pdb.set_trace()
         

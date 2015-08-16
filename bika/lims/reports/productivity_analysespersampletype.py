@@ -11,7 +11,7 @@ from bika.lims import bikaMessageFactory as _
 
 class Report(BrowserView):
     template = ViewPageTemplateFile(
-        "templates/productivity_dailysamplesreceived.pt")
+        "templates/report_out.pt")
 
     def __init__(self, context, request={}):
         self.context = context
