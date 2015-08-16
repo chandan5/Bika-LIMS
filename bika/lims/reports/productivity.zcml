@@ -45,4 +45,12 @@
         factory=".productivity_analysestats.Report"
         permission="zope2.View"
     />
+
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesStatsOverTime"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_analysestats_overtime.Report"
+        permission="zope2.View"
+    />
+
 </configure>
