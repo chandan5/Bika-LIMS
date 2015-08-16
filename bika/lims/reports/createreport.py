@@ -85,6 +85,7 @@ class CreateReport(object):
             ])
         elif report_type == 'productivity_analysesperclient':
             alsoProvides(obj, IAnalysesPerClient)
+            obj.base_query = {'portal_type': 'Analysis'}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'created',
                  'o': 'plone.app.querystring.operation.date.today'},
@@ -97,6 +98,7 @@ class CreateReport(object):
             ])
         elif report_type == 'productivity_analysestats':
             alsoProvides(obj, IAnalysesStats)
+            obj.base_query = {'portal_type': 'Analysis'}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'ClientTitle',
                  'o': 'plone.app.querystring.operation.selection.is'},
