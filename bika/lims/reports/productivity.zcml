@@ -67,4 +67,18 @@
         permission="zope2.View"
     />
 
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesAttachments"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_analysesattachments.Report"
+        permission="zope2.View"
+    />
+    
+    <adapter
+        for="bika.lims.reports.interfaces.IDataEntryDayBook"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_dataentrydaybook.Report"
+        permission="zope2.View"
+    />
+
 </configure>
