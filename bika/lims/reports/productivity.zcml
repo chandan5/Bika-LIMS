@@ -59,4 +59,12 @@
         factory=".productivity_analysesperdepartment.Report"
         permission="zope2.View"
     />
+
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesPerformedPerTotal"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".productivity_analysesperformedpertotal.Report"
+        permission="zope2.View"
+    />
+
 </configure>
