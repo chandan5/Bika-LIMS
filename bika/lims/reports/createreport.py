@@ -102,6 +102,7 @@ class CreateReport(object):
             ])
         elif report_type == 'productivity_analysesperdepartment':
             alsoProvides(obj, IAnalysesPerDepartment)
+            obj.base_query = {'portal_type': 'Analysis'}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'created',
                  'o': 'plone.app.querystring.operation.date.today'},

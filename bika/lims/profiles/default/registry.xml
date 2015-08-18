@@ -224,7 +224,6 @@
     <value key="vocabulary">bika.lims.vocabularies.SampleTypes</value>
     <value key="group" i18n:translate="" i18n_domain="plone">Bika-LIMS</value>
   </records>
-  
 
   <!-- To add Period : [Day, Week, Month]  -->
   <!-- To add Output Format  -->
