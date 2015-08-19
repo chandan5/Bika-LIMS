@@ -133,12 +133,16 @@ class CreateReport(object):
         # Specification to be added in qualitycontrol_analysesoutofrange
         elif report_type == 'qualitycontrol_analysesoutofrange':
             alsoProvides(obj, IAnalysesOutOfRange)
+            obj.base_query = {"portal_type": "Analysis", "sort_order": "reverse"}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'DateReceived',
                  'o': 'plone.app.querystring.operation.date.today'},
             ])
         elif report_type == 'qualitycontrol_analysesrepeated':
             alsoProvides(obj, IAnalysesRepeated)
+            obj.base_query = {'portal_type': 'Analysis',
+                                'Retested': True,
+                                'sort_order': 'reverse'}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'DateReceived',
                  'o': 'plone.app.querystring.operation.date.today'},

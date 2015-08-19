@@ -6,6 +6,7 @@
 
     <include file="menu.zcml"/>
     <include file="productivity.zcml"/>
+    <include file="qualitycontrol.zcml"/>
 
     <browser:page
         for="bika.lims.interfaces.IReportFolder"

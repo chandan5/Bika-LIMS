@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="bika">
+    
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesOutOfRange"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".qualitycontrol_analysesoutofrange.Report"
+        permission="zope2.View"
+    />
+
+    <adapter
+        for="bika.lims.reports.interfaces.IAnalysesRepeated"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".qualitycontrol_analysesrepeated.Report"
+        permission="zope2.View"
+    />
+
+</configure>
