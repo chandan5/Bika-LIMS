@@ -149,6 +149,8 @@ class CreateReport(object):
             ])
         elif report_type == 'qualitycontrol_resultspersamplepoint':
             alsoProvides(obj, IResultsPerSamplePoint)
+            obj.base_query = {'portal_type': 'Analysis',
+                              'review_state': ['verified', 'published']}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'ClientTitle',
                  'o': 'plone.app.querystring.operation.selection.is'},

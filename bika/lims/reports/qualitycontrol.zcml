@@ -18,4 +18,11 @@
         permission="zope2.View"
     />
 
+    <adapter
+        for="bika.lims.reports.interfaces.IResultsPerSamplePoint"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
+        factory=".qualitycontrol_resultspersamplepoint.Report"
+        permission="zope2.View"
+    />
+
 </configure>
