@@ -178,6 +178,10 @@ class CreateReport(object):
             ])
         elif report_type == 'administration_arsnotinvoiced':
             alsoProvides(obj, IArsNotInvoiced)
+            obj.base_query = {'portal_type': 'AnalysisRequest',
+                 'Invoiced': False,
+                 'review_state': 'published',
+                 'sort_order': 'reverse'}
             obj.Schema().getField('query').set(obj, [
                 {'i': 'DatePublished',
                  'o': 'plone.app.querystring.operation.date.today'},
