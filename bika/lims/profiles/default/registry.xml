@@ -225,6 +225,20 @@
     <value key="group" i18n:translate="" i18n_domain="plone">Bika-LIMS</value>
   </records>
 
+  <!-- plone.app.querystring.field.Username -->
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.Username">
+    <value key="title" i18n:translate="" i18n_domain="plone">User Name</value>
+    <value key="description" i18n:translate="" i18n_domain="plone">User Name</value>
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.selection.is</element>
+    </value>
+    <value key="vocabulary">bika.lims.vocabularies.Users</value>
+    <value key="group" i18n:translate="" i18n_domain="plone">Bika-LIMS</value>
+  </records>
+
   <!-- To add Period : [Day, Week, Month]  -->
   <!-- To add Output Format  -->
   <!-- To add Group by : [Day, Week, Month, Year] -->
