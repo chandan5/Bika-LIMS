@@ -12,8 +12,8 @@
     />
 
     <adapter
-        for="bika.lims.reports.interfaces.IArsNotInvoiced"
-        provides="bika.lims.reports.interfaces.IUserHistory"
+        for="bika.lims.reports.interfaces.IUserHistory"
+        provides="bika.lims.reports.interfaces.IReportCollectionView"
         factory=".administration_userhistory.Report"
         permission="zope2.View"
     />

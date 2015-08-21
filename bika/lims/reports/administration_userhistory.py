@@ -82,62 +82,99 @@ class Report(BrowserView):
 
         rt = getToolByName(self.context, 'portal_repository')
         mt = getToolByName(self.context, 'portal_membership')
-        
-        samples = catalog(parsedquery)
+        import pdb; pdb.set_trace()
+        user = ''
+        userfullname = ''
+        if self.request.form.get('User', '') != '':
+            user = self.request.form['User']
+            userobj = mt.getMemberById(user)
+            userfullname = userobj.getProperty('fullname') \
+                           if userobj else ''
+            parms.append(
+                {'title': _('User'), 'value': ("%s (%s)" % (userfullname, user))})
+
+        # Query the catalog and store results in a dictionary
+        entities = self.portal_catalog(self.contentFilter)
+
+        if not entities:
+            message = _("No historical actions matched your query")
+            self.context.plone_utils.addPortalMessage(message, "error")
+            return self.default_template()
 
         datalines = []
-        analyses_count = 0
-        for sample in samples:
-            sample = sample.getObject()
+        tmpdatalines = {}
+        footlines = {}
 
-            # For each sample, retrieve the analyses and generate
-            # a data line for each one
-            analyses = sample.getAnalyses({})
-            for analysis in analyses:
-                analysis = analysis.getObject()
-                dataline = {'AnalysisKeyword': analysis.getKeyword(),
-                            'AnalysisTitle': analysis.getServiceTitle(),
-                            'SampleID': sample.getSampleID(),
-                            'SampleType': sample.getSampleType().Title(),
-                            'SampleDateReceived': self.ulocalized_time(
-                                sample.getDateReceived(), long_format=1),
-                            'SampleSamplingDate': self.ulocalized_time(
-                                sample.getSamplingDate(), long_format=1)}
-                datalines.append(dataline)
-                analyses_count += 1
+        for entity in entities:
+            entity = entity.getObject()
+            entitytype = _(entity.__class__.__name__)
 
-        self.report_data['datalines'] = datalines
-        # Footer total data
-        footlines = []
-        footline = {'TotalCount': analyses_count}
-        footlines.append(footline)
-        self.report_data['footlines'] = footlines
+            # Workflow states retrieval
+            for workflowid, workflow in entity.workflow_history.iteritems():
+                for action in workflow:
+                    actiontitle = _('Created')
+                    if not action['action'] or (
+                        action['action'] and action['action'] == 'create'):
+                        if workflowid == 'bika_inactive_workflow':
+                            continue
+                        actiontitle = _('Created')
+                    else:
+                        actiontitle = _(action['action'])
 
-        if self.request.get('output_format', '') == 'CSV':
-            import csv
-            import StringIO
-            import datetime
+                    if (user == '' or action['actor'] == user):
+                        actorfullname = userfullname == '' and mt.getMemberById(
+                            user) or userfullname
+                        dataline = {'EntityNameOrId': entity.title_or_id(),
+                                    'EntityAbsoluteUrl': entity.absolute_url(),
+                                    'EntityCreationDate': entity.CreationDate(),
+                                    'EntityModificationDate': entity.ModificationDate(),
+                                    'EntityType': entitytype,
+                                    'Workflow': _(workflowid),
+                                    'Action': actiontitle,
+                                    'ActionDate': action['time'],
+                                    'ActionDateStr': self.ulocalized_time(
+                                        action['time'], 1),
+                                    'ActionActor': action['actor'],
+                                    'ActionActorFullName': actorfullname,
+                                    'ActionComments': action['comments']
+                        }
+                        tmpdatalines[action['time']] = dataline
 
-            fieldnames = [
-                'SampleID',
-                'SampleType',
-                'SampleSamplingDate',
-                'SampleDateReceived',
-                'AnalysisTitle',
-                'AnalysisKeyword',
-            ]
-            output = StringIO.StringIO()
-            dw = csv.DictWriter(output, fieldnames=fieldnames)
-            dw.writerow(dict((fn, fn) for fn in fieldnames))
-            for row in datalines:
-                dw.writerow(row)
-            report_data = output.getvalue()
-            output.close()
-            date = datetime.datetime.now().strftime("%Y%m%d%H%M")
-            setheader = self.request.RESPONSE.setHeader
-            setheader('Content-Type', 'text/csv')
-            setheader("Content-Disposition",
-                      "attachment;filename=\"dailysamplesreceived_%s.csv\"" % date)
-            self.request.RESPONSE.write(report_data)
+            # History versioning retrieval
+            history = rt.getHistoryMetadata(entity)
+            if history:
+                hislen = history.getLength(countPurged=False)
+                for index in range(hislen):
+                    meta = history.retrieve(index)['metadata']['sys_metadata']
+                    metatitle = _(meta['comment'])
+                    if (user == '' or meta['principal'] == user):
+                        actorfullname = userfullname == '' and \
+                            mt.getMemberById(user) or userfullname
+                        dataline = {'EntityNameOrId': entity.title_or_id(),
+                                    'EntityAbsoluteUrl': entity.absolute_url(),
+                                    'EntityCreationDate': entity.CreationDate(),
+                                    'EntityModificationDate': entity.ModificationDate(),
+                                    'EntityType': entitytype,
+                                    'Workflow': '',
+                                    'Action': metatitle,
+                                    'ActionDate': meta['timestamp'],
+                                    'ActionDateStr': meta['timestamp'],
+                                    'ActionActor': meta['principal'],
+                                    'ActionActorFullName': actorfullname,
+                                    'ActionComments': ''
+                        }
+                        tmpdatalines[meta['timestamp']] = dataline
+        if len(tmpdatalines) == 0:
+            message = _(
+                "No actions found for user ${user}",
+                mapping={"user": userfullname})
+            self.context.plone_utils.addPortalMessage(message, "error")
+            return self.default_template()
         else:
-            return self.template()
+            # Sort datalines
+            tmpkeys = tmpdatalines.keys()
+            tmpkeys.sort(reverse=True)
+            for index in range(len(tmpkeys)):
+                datalines.append(tmpdatalines[tmpkeys[index]])
+
+        return self.template()

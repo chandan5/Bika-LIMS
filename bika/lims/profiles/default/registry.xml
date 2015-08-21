@@ -239,6 +239,19 @@
     <value key="group" i18n:translate="" i18n_domain="plone">Bika-LIMS</value>
   </records>
 
+  <record interface="plone.app.querystring.interfaces.IQueryField">
+    <field>
+        <title>Period</title>
+        <description>Time Period</description>
+        <value_type type="plone.registry.field.TextLine" />
+    </field>
+    <value>
+        <element>Day</element>
+        <element>Week</element>
+        <element>Month</element>
+    </value>
+  </record>
+
   <!-- To add Period : [Day, Week, Month]  -->
   <!-- To add Output Format  -->
   <!-- To add Group by : [Day, Week, Month, Year] -->

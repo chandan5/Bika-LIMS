@@ -229,7 +229,9 @@ class CreateReport(object):
             alsoProvides(obj, IUserHistory)
             obj.Schema().getField('query').set(obj, [
                 {'i': 'modified',
-                 'o': 'plone.app.querystring.operation.date.today'}
+                 'o': 'plone.app.querystring.operation.date.today'},
+                {'i': 'Username',
+                 'o': 'plone.app.querystring.operation.selection.is'}
             ])
 
         # Redirect to the edit page, to allow the user to complete parameters
